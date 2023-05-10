@@ -1,5 +1,5 @@
 <template>
-  <div>chào Nam</div>
+  <div>chào Nam <h1>Nam 123456</h1></div>
 </template>
 
 <script>
