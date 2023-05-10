@@ -1,5 +1,5 @@
 <template>
-  <div>chào Thành</div>
+  <div>chào Nam</div>
 </template>
 
 <script>
