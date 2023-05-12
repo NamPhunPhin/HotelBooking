@@ -65,6 +65,7 @@ export default {
   },
 
   methods: {
+    // Phương thức mở và tắt Navbar của mobile.
     OpenMenuMobileHandleClick() {
       this.ShowMobileNav = !this.ShowMobileNav;
       this.$refs.MobileMenu.style.display = this.ShowMobileNav
@@ -164,6 +165,7 @@ export default {
 
 .Menu-Text-Mobile {
   display: none;
+  z-index: 999;
 }
 
 @media only screen and (max-width: 850px) {
@@ -195,7 +197,7 @@ export default {
   }
 
   .Menu-Text-Mobile {
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
     z-index: 999;
     font-weight: 500 !important;

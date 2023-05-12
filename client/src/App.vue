@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <NavbarComponent/>
-    <IntroPage/>
-    <FooterComponent/>
-  </div>
+  <NavbarComponent />
+  <AuthPage />
+  <FooterComponent />
 </template>
 
 <script>
-import NavbarComponent from './components/NavbarComponent.vue';
-import FooterComponent from './components/FooterComponent.vue';
-import IntroPage from './pages/User/IntroPage.vue';
+import NavbarComponent from "./components/NavbarComponent.vue";
+import FooterComponent from "./components/FooterComponent.vue";
+import AuthPage from "./pages/User/AuthPage.vue";
 
 export default {
   name: "App",
-  components: {NavbarComponent, FooterComponent, IntroPage},
+  components: { NavbarComponent, FooterComponent, AuthPage },
 };
 </script>
 
@@ -28,5 +26,10 @@ export default {
 * {
   margin: none;
   padding: none;
+}
+
+.Button-Main {
+  background: var(--main-Color);
+  border-radius: 10px;
 }
 </style>
