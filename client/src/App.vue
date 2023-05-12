@@ -1,27 +1,17 @@
 <template>
-<<<<<<< HEAD
   <NavbarComponent />
-  <!-- <img src="/images/banner.png" alt="" /> -->
+  <AuthPage />
+  <FooterComponent />
 </template>
 
 <script>
 import NavbarComponent from "./components/NavbarComponent.vue";
-export default {
-  name: "App",
-  components: { NavbarComponent },
-=======
-  <div>
-    <FooterComponent></FooterComponent>
-  </div>
-</template>
-
-<script>
-import FooterComponent from './components/FooterComponent.vue';
+import FooterComponent from "./components/FooterComponent.vue";
+import AuthPage from "./pages/User/AuthPage.vue";
 
 export default {
   name: "App",
-  components: {FooterComponent},
->>>>>>> e723f27c7fd85c43c58ad734d28efb1cbf1cc7e1
+  components: { NavbarComponent, FooterComponent, AuthPage },
 };
 </script>
 
@@ -36,5 +26,10 @@ export default {
 * {
   margin: none;
   padding: none;
+}
+
+.Button-Main {
+  background: var(--main-Color);
+  border-radius: 10px;
 }
 </style>
