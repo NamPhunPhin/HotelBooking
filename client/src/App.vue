@@ -1,6 +1,7 @@
 <template>
   <div>
     <NavbarComponent/>
+    <IntroPage/>
     <FooterComponent/>
   </div>
 </template>
@@ -8,10 +9,11 @@
 <script>
 import NavbarComponent from './components/NavbarComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
+import IntroPage from './pages/User/IntroPage.vue';
 
 export default {
   name: "App",
-  components: {NavbarComponent, FooterComponent},
+  components: {NavbarComponent, FooterComponent, IntroPage},
 };
 </script>
 
