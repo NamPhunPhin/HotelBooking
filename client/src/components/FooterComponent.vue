@@ -13,12 +13,12 @@
         </p>
       </div>
       <div class="logo row">
-        <div class="col-2"><div class="logo1"></div></div>
-        <div class="col-2"><div class="logo2"></div></div>
-        <div class="col-2"><div class="logo3"></div></div>
-        <div class="col-2"><div class="logo4"></div></div>
-        <div class="col-2"><div class="logo5"></div></div>
-        <div class="col-2"><div class="logo6"></div></div>
+        <div class="col-sm-2"><div class="logo1"></div></div>
+        <div class="col-sm-2"><div class="logo2"></div></div>
+        <div class="col-sm-2"><div class="logo3"></div></div>
+        <div class="col-sm-2"><div class="logo4"></div></div>
+        <div class="col-sm-2"><div class="logo5"></div></div>
+        <div class="col-sm-2"><div class="logo6"></div></div>
       </div>
     </div>
   </div>
