@@ -60,7 +60,7 @@
           alt="..."
         />
         <div class="card-img-overlay">
-          <h3 class="card-title">Đà Nẵng</h3>
+          <span class="card-title">Đà Nẵng</span>
         </div>
       </div>
       <div class="card bg-dark m-2 text-white col-md-3 p-0 border-0">
@@ -70,7 +70,7 @@
           alt="..."
         />
         <div class="card-img-overlay">
-          <h3 class="card-title">TP Hồ chí Minh</h3>
+          <span class="card-title">TP Hồ chí Minh</span>
         </div>
       </div>
       <div class="card bg-dark m-2 text-white col-md-3 p-0 border-0">
@@ -80,7 +80,7 @@
           alt="..."
         />
         <div class="card-img-overlay">
-          <h3 class="card-title">Đà Lạt</h3>
+          <span class="card-title">Đà Lạt</span>
         </div>
       </div>
     </div>
@@ -246,6 +246,11 @@ document.addEventListener("click", function (e) {
   --font-Dancing: "Dancing Script", cursive;
 }
 
+.card-img-overlay > span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 /* Block-2 */
 .block-2 {
   background: #bdbdbd81;
@@ -387,8 +392,8 @@ document.addEventListener("click", function (e) {
   font-family: var(--font-Dancing);
 }
 
-.block-5 h1{
-    color: rgb(220, 53, 69);
+.block-5 h1 {
+  color: rgb(220, 53, 69);
 }
 
 .modal-body {
