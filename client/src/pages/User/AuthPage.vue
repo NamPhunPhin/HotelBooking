@@ -26,6 +26,10 @@
         </button>
       </div>
 
+      <h5 v-if="isLogin">
+        Để đảm bảo an toàn, xin vui lòng đăng nhập để truy cập vào thông tin
+      </h5>
+
       <div v-if="!isLogin" class="Input-Group">
         <div class="Input-Field">
           <input type="text" placeholder="Họ" v-model="dataForm.LastName" />
@@ -129,7 +133,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   margin: 100px 0;
+}
+
+.Auth-Container > form > h5 {
+  width: 500px;
+  word-wrap: break-word;
+  margin-bottom: 40px;
 }
 
 .Auth-Container > form {
