@@ -29,10 +29,6 @@ export default {
 };
 </script>
 <style>
-:root {
-  --bgFooter: #2e2e2e;
-}
-
 .footer {
   width: 100%;
   padding: 50px;
