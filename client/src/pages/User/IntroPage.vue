@@ -239,13 +239,6 @@ document.addEventListener("click", function (e) {
 });
 </script>
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Gilda+Display&family=Italianno&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
-:root {
-  --font-Display: "Playfair Display", serif;
-  --font-Dancing: "Dancing Script", cursive;
-}
-
 .card-img-overlay > span {
   font-size: 20px;
   font-weight: bold;
@@ -259,7 +252,7 @@ document.addEventListener("click", function (e) {
 }
 
 .title_block-2 {
-  color: rgb(220, 53, 69);
+  color: var(--main-Color);
 }
 
 .block-2 .card {
@@ -269,7 +262,7 @@ document.addEventListener("click", function (e) {
 
 .block-2 .card-title {
   visibility: hidden;
-  color: rgb(220, 53, 69);
+  color: var(--main-Color);
 }
 
 .block-2 .card-img-overlay:hover .card-title {
@@ -315,7 +308,7 @@ document.addEventListener("click", function (e) {
 .block-3 .card-img-overlay {
   margin-top: 300px;
   margin-left: 800px;
-  color: rgb(220, 53, 69);
+  color: rgb(255, 247, 247);
 }
 
 .block-3 .card-title {
@@ -357,7 +350,11 @@ document.addEventListener("click", function (e) {
 
 .block-4 .card-img-overlay {
   margin-top: 100px;
-  color: rgb(220, 53, 69);
+  color: var(--main-Color);
+}
+
+.block-4 .card-img-overlay .btn{
+  color: var(--main-Color);
 }
 
 .block-4 .card-title {
@@ -393,7 +390,7 @@ document.addEventListener("click", function (e) {
 }
 
 .block-5 h1 {
-  color: rgb(220, 53, 69);
+  color: var(--main-Color);
 }
 
 .modal-body {
