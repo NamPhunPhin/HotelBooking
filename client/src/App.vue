@@ -1,19 +1,18 @@
 <template>
   <NavbarComponent />
-  <AuthPage />
-  <!-- <IntroPage /> -->
+  <IntroPage/>
   <FooterComponent />
 </template>
 
 <script>
 import NavbarComponent from "./components/NavbarComponent.vue";
 import FooterComponent from "./components/FooterComponent.vue";
-// import IntroPage from "./pages/User/IntroPage.vue";
-import AuthPage from "./pages/User/AuthPage.vue";
+import IntroPage from "./pages/User/IntroPage.vue";
+// import AuthPage from "./pages/User/AuthPage.vue";
 
 export default {
   name: "App",
-  components: { NavbarComponent, FooterComponent, AuthPage },
+  components: { NavbarComponent, FooterComponent, IntroPage },
 };
 </script>
 
