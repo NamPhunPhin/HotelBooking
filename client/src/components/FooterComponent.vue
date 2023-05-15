@@ -3,11 +3,11 @@
     <div class="container">
       <div class="text_policy mb-5 text-white">
         <p>
-          Mọi nội dung tại đây © 2005 – 2023 Công ty TNHH Tư nhân Agoda. Bảo Lưu
-          Mọi Quyền.
+          Mọi nội dung tại đây © 2005 – 2023 Công ty TNHH Thương Mại và Dịch Vụ
+          Lisa. Bảo Lưu Mọi Quyền.
         </p>
         <p>
-          Agoda.com là thành viên của Tập đoàn Booking Holdings, nhà cung cấp
+          Lisa.com là thành viên của Tập đoàn Booking Holdings, nhà cung cấp
           dịch vụ du lịch trực tuyến & các dịch vụ có liên quan hàng đầu thế
           giới.
         </p>
