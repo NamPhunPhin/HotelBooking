@@ -1,6 +1,38 @@
 <template lang="">
   <div class="Contact">
     <div class="m-0">
+      <!-- Message Us -->
+
+      <div class="info-contact">
+        <div class="bg_info text-center">
+          <h1 class="mb-5 pb-5">CONTACT US</h1>
+          <div class="row justify-content-between w-100 m-0">
+            <div class="col-md-2 p-0 info text-center Phone">
+              <div class="icon"><i class="fa-solid fa-phone fa-2xl"></i></div>
+              <h5>Phone</h5>
+              <p>(08) 2244 7799</p>
+            </div>
+            <div class="col-md-3 p-0 info text-center Address">
+              <div class="icon">
+                <i class="fa-solid fa-location-dot fa-2xl"></i>
+              </div>
+              <h5>Address</h5>
+              <p>
+                Tầng 5, 610 Võ Văn Kiệt,<br />
+                Phường Cầu Kho, Quận 1, Tp.HCM
+              </p>
+            </div>
+            <div class="col-md-2 p-0 info text-center Email">
+              <div class="icon">
+                <i class="fa-solid fa-envelope fa-2xl"></i>
+              </div>
+              <h5>Email</h5>
+              <p>info@lisa.com.vn</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Map -->
       <div class="p-0 m-0">
         <iframe
@@ -13,26 +45,7 @@
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
-<<<<<<< HEAD
-      <div class="form-bg">
-        <h5><b>Lisa Co.,Ltd</b></h5>
-        <p class="mb-1 p-0">
-          Tầng 5, 610 Võ Văn Kiệt, Phường Cầu Kho, Quận 1, Tp.HCM
-        </p>
-        <p class="mb-1 p-0">[P]: (08) 2244 7799</p>
-        <p class="p-0">[E]: info@lisa.com.vn</p>
-        <form class="form mt-1">
-          <div class="form-floating mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="Name"
-              placeholder="Name"
-              required
-            />
-            <label for="Name" class="form-label">Name</label>
-=======
-      <!-- Message Us -->
+
       <div class="row mt-5 p-5 w-100">
         <div class="col-md text-center" style="font-family: var(--font-Anton)">
           <h1 class="mb-5 mt-5">FAQ</h1>
@@ -63,7 +76,6 @@
             <p class="mb-3">
               <a href="">Khách sạn có cho trả phòng trễ hay không ?</a>
             </p>
->>>>>>> f103b8e9e3779e811acc7874fb056115c15cef68
           </div>
         </div>
         <div class="col-md">
@@ -143,52 +155,6 @@
         </div>
       </div>
       <!-- Info Contact -->
-      <div class="info-contact">
-        <div class="bg_info text-center">
-          <h1 class="mb-5 pb-5">CONTACT US</h1>
-          <div class="row justify-content-between w-100 m-0">
-            <div class="col-md-2 p-0 info text-center Phone">
-              <div class="icon"><i class="fa-solid fa-phone fa-2xl"></i></div>
-              <h5>Phone</h5>
-              <p>(08) 2244 7799</p>
-            </div>
-            <div class="col-md-3 p-0 info text-center Address">
-              <div class="icon">
-                <i class="fa-solid fa-location-dot fa-2xl"></i>
-              </div>
-              <h5>Address</h5>
-              <p>
-                Tầng 5, 610 Võ Văn Kiệt,<br />
-                Phường Cầu Kho, Quận 1, Tp.HCM
-              </p>
-            </div>
-            <div class="col-md-2 p-0 info text-center Email">
-              <div class="icon">
-                <i class="fa-solid fa-envelope fa-2xl"></i>
-              </div>
-              <h5>Email</h5>
-              <p>info@lisa.com.vn</p>
-            </div>
-          </div>
-<<<<<<< HEAD
-          <div class="form-floating mb-3">
-            <textarea
-              class="form-control text-area"
-              placeholder="Massage"
-              id="Message"
-              style="height: 100px"
-              required
-            ></textarea>
-            <label for="Message">Message</label>
-          </div>
-          <div class="mb-3">
-            <input type="submit" class="btn btn-primary" value="Send message" />
-          </div>
-        </form>
-=======
-        </div>
->>>>>>> f103b8e9e3779e811acc7874fb056115c15cef68
-      </div>
     </div>
   </div>
 </template>
@@ -236,21 +202,6 @@ input[type="submit"]:hover {
 }
 
 .form-bg {
-<<<<<<< HEAD
-  position: absolute;
-  transform: translate(900px, -600px);
-  background: var(--custom-Color);
-  padding: 20px;
-  font-family: var(--font-Anton);
-}
-
-/* Reponsive form */
-@media screen and (max-width: 767px) {
-  .form-bg {
-    position: relative;
-    transform: translate(0px, 0px);
-  }
-=======
   padding: 40px;
   text-align: center;
 }
@@ -287,6 +238,5 @@ input[type="submit"]:hover {
 
 .FAQ a:hover {
   color: var(--main-Color);
->>>>>>> f103b8e9e3779e811acc7874fb056115c15cef68
 }
 </style>
