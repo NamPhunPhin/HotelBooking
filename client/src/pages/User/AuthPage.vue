@@ -91,8 +91,20 @@
 </template>
 
 <script>
+import { useRoute } from "vue-router";
 export default {
   name: "AuthPage",
+  created() {
+    const route = useRoute();
+
+    const signup = route.params.signup;
+    if (signup == "signup") {
+      this.isLogin = false;
+    } else {
+      this.isLogin = true;
+    }
+  },
+
   data() {
     return {
       isLogin: true,
@@ -110,6 +122,7 @@ export default {
   methods: {
     // Phương thức thay đổi từ đăng nhập sang đăng ký và ngược lại.
     ButtonSwitchHandleClick(event) {
+      console.log(this.isLogin);
       event.preventDefault();
       this.isLogin = !this.isLogin;
       this.isAccept = false;
