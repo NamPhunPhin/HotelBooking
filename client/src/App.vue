@@ -1,19 +1,21 @@
 <template>
   <NavbarComponent />
-  <ContactPage/>
-  <FooterComponent />
+  <CartPage/>
+  <!-- <FooterComponent /> -->
 </template>
 
 <script>
 import NavbarComponent from "./components/NavbarComponent.vue";
-import FooterComponent from "./components/FooterComponent.vue";
-import ContactPage from "./pages/User/ContactPage.vue";
+// import FooterComponent from "./components/FooterComponent.vue";
+// import ContactPage from "./pages/User/ContactPage.vue";
+// import HomePage from "./pages/User/HomePage.vue";
 // import IntroPage from "./pages/User/IntroPage.vue";
 // import AuthPage from "./pages/User/AuthPage.vue";
+import CartPage from "./pages/User/CartPage.vue";
 
 export default {
   name: "App",
-  components: { NavbarComponent, FooterComponent, ContactPage },
+  components: { NavbarComponent, CartPage },
 };
 </script>
 
@@ -25,6 +27,8 @@ export default {
 :root {
   --main-Color: rgb(220, 53, 69);
   --gray-Color: rgb(153, 153, 153);
+  --blue-Color: rgb(62, 108, 234);
+  --font-Graycolor: rgb(112, 112, 112);
   --custom-Color : rgb(255, 255, 255);
   --font-Mallory: "Mallory", sans-serif;
   --font-Anton: "Anton", sans-serif;
