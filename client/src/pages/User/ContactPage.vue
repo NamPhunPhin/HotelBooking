@@ -1,6 +1,38 @@
 <template lang="">
   <div class="Contact">
     <div class="m-0">
+      <!-- Message Us -->
+
+      <div class="info-contact">
+        <div class="bg_info text-center">
+          <h1 class="mb-5 pb-5">CONTACT US</h1>
+          <div class="row justify-content-between w-100 m-0">
+            <div class="col-md-2 p-0 info text-center Phone">
+              <div class="icon"><i class="fa-solid fa-phone fa-2xl"></i></div>
+              <h5>Phone</h5>
+              <p>(08) 2244 7799</p>
+            </div>
+            <div class="col-md-3 p-0 info text-center Address">
+              <div class="icon">
+                <i class="fa-solid fa-location-dot fa-2xl"></i>
+              </div>
+              <h5>Address</h5>
+              <p>
+                Tầng 5, 610 Võ Văn Kiệt,<br />
+                Phường Cầu Kho, Quận 1, Tp.HCM
+              </p>
+            </div>
+            <div class="col-md-2 p-0 info text-center Email">
+              <div class="icon">
+                <i class="fa-solid fa-envelope fa-2xl"></i>
+              </div>
+              <h5>Email</h5>
+              <p>info@lisa.com.vn</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Map -->
       <div class="p-0 m-0">
         <iframe
@@ -13,7 +45,7 @@
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
-      <!-- Message Us -->
+
       <div class="row mt-5 p-5 w-100">
         <div class="col-md text-center" style="font-family: var(--font-Anton)">
           <h1 class="mb-5 mt-5">FAQ</h1>
@@ -123,35 +155,6 @@
         </div>
       </div>
       <!-- Info Contact -->
-      <div class="info-contact">
-        <div class="bg_info text-center">
-          <h1 class="mb-5 pb-5">CONTACT US</h1>
-          <div class="row justify-content-between w-100 m-0">
-            <div class="col-md-2 p-0 info text-center Phone">
-              <div class="icon"><i class="fa-solid fa-phone fa-2xl"></i></div>
-              <h5>Phone</h5>
-              <p>(08) 2244 7799</p>
-            </div>
-            <div class="col-md-3 p-0 info text-center Address">
-              <div class="icon">
-                <i class="fa-solid fa-location-dot fa-2xl"></i>
-              </div>
-              <h5>Address</h5>
-              <p>
-                Tầng 5, 610 Võ Văn Kiệt,<br />
-                Phường Cầu Kho, Quận 1, Tp.HCM
-              </p>
-            </div>
-            <div class="col-md-2 p-0 info text-center Email">
-              <div class="icon">
-                <i class="fa-solid fa-envelope fa-2xl"></i>
-              </div>
-              <h5>Email</h5>
-              <p>info@lisa.com.vn</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -176,8 +179,7 @@ export default {
   width: 100%;
 }
 
-input,
-textarea {
+.text-area {
   width: 400px !important;
 }
 

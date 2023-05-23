@@ -2,26 +2,33 @@
   <div class="Navbar-Container">
     <div class="Logo-And-Nav">
       <div class="Logo">
-        <img src="/images/logo.png" alt="" />
+        <router-link to="/"><img src="/images/logo.png" alt="" /></router-link>
       </div>
       <div class="Nav-List">
         <ul>
-          <li class="TextMenu-Active">Khách sạn</li>
-          <li>Liên lạc</li>
-          <li>Giới thiệu</li>
+          <li class="TextMenu-Active">
+            <router-link to="/">Khách sạn</router-link>
+          </li>
+          <li><router-link to="/contact">Liên lạc</router-link></li>
+          <li><router-link to="/about">Giới thiệu</router-link></li>
         </ul>
       </div>
     </div>
 
     <div class="Cart-And-Account">
       <div class="Auth">
-        <div class="btn">Đăng nhập</div>
-        <div class="btn btn-outline-danger">Đăng ký</div>
+        <router-link to="/auth"><div class="btn">Đăng nhập</div></router-link>
+
+        <router-link to="/auth/signup"
+          ><div class="btn btn-outline-danger">Đăng ký</div></router-link
+        >
       </div>
 
-      <span class="position-relative">
-        <i class="fa-solid fa-cart-shopping"></i>
-      </span>
+      <router-link to="/cart">
+        <span class="position-relative">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </span>
+      </router-link>
     </div>
 
     <div class="Mobile-NavDropDown">
@@ -40,16 +47,29 @@
   </div>
   <div class="Menu-Text-Mobile" ref="MobileMenu">
     <ul>
-      <li class="TextMenu-Active">Khách sạn</li>
-      <li>Liên lạc</li>
-      <li>Giới thiệu</li>
+      <li @click="OpenMenuMobileHandleClick()" class="TextMenu-Active">
+        <router-link to="/">Khách sạn</router-link>
+      </li>
+      <li @click="OpenMenuMobileHandleClick()">
+        <router-link to="/contact">Liên lạc</router-link>
+      </li>
+      <li @click="OpenMenuMobileHandleClick()">
+        <router-link to="/about">Giới thiệu</router-link>
+      </li>
     </ul>
     <div class="Account-Nav-Mobile">
       <div>Tài khoản</div>
       <hr />
       <div class="Btn-Group">
-        <div class="btn btn-danger">Đăng nhập</div>
-        <div class="btn btn-outline-danger">Đăng ký</div>
+        <div @click="OpenMenuMobileHandleClick()" class="btn btn-danger">
+          <router-link to="/auth">Đăng nhập</router-link>
+        </div>
+        <div
+          @click="OpenMenuMobileHandleClick()"
+          class="btn btn-outline-danger"
+        >
+          <router-link to="/auth">Đăng ký</router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -94,7 +114,7 @@ export default {
   margin-left: 5rem;
 }
 
-.Logo-And-Nav > .Logo > img {
+.Logo-And-Nav > .Logo > a > img {
   width: 80px;
   justify-content: center;
   align-items: center;
@@ -141,17 +161,17 @@ export default {
   font-size: 10px !important;
 }
 
-.Cart-And-Account > .Auth > div:nth-of-type(1) {
+.Cart-And-Account > .Auth > a > div:nth-of-type(1) {
   color: red;
   font-size: 12px !important;
 }
 
-.Cart-And-Account > .Auth > div:nth-of-type(1):hover {
+.Cart-And-Account > .Auth > a > div:nth-of-type(1):hover {
   background: var(--main-Color);
   color: white;
 }
 
-.Cart-And-Account > .Auth > div:nth-of-type(2) {
+.Cart-And-Account > .Auth > a > div:nth-of-type(2) {
   font-size: 12px !important;
 }
 

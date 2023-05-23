@@ -1,11 +1,11 @@
 <template>
-  <div class="Home-Container">
+  <div class="Home-Container" ref="HomeContainer">
     <div class="Banner-Searching">
       <div class="Text-Banner">
         <h3>KHÁCH SẠN, KHU NGHỈ DƯỠNG, NHÀ TRỌ & HƠN THẾ NỮA</h3>
         <span>Nhận giá tốt nhất cho > 2.000.000 chỗ nghỉ, trên toàn cầu</span>
       </div>
-      <div class="Searching-Component">
+      <div class="Searching-Component" v-if="!view.topOfPage">
         <SearchBoxComponent />
       </div>
     </div>
@@ -16,19 +16,43 @@
       <TopDestinationsSlideComponent :is-out-side="true" />
     </div>
   </div>
+  <div class="Search-Nav" v-if="view.topOfPage">
+    <SearchNavbarComponent />
+  </div>
 </template>
 
 <script>
 import SearchBoxComponent from "../../components/SearchBoxComponent.vue";
 import TopDestinationsSlideComponent from "../../components/TopDestinationsSlideComponent.vue";
 import RecommendHotelComponent from "../../components/RecommendHotelComponent.vue";
+import SearchNavbarComponent from "../../components/SearchNavbarComponent.vue";
 import RecommendRoomComponent from "../../components/RecommendRoomComponent.vue";
 export default {
+  data() {
+    return {
+      view: {
+        topOfPage: false,
+      },
+    };
+  },
+
   components: {
     SearchBoxComponent,
     TopDestinationsSlideComponent,
     RecommendHotelComponent,
     RecommendRoomComponent,
+    SearchNavbarComponent,
+  },
+
+  methods: {
+    NavSearchHandleScroll() {
+      document.documentElement.scrollTop > 550
+        ? (this.view.topOfPage = true)
+        : (this.view.topOfPage = false);
+    },
+  },
+  beforeMount() {
+    window.addEventListener("scroll", this.NavSearchHandleScroll);
   },
 };
 </script>
@@ -61,6 +85,13 @@ export default {
   position: absolute;
   width: 100%;
   top: 45%;
+}
+
+.Search-Nav {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
 }
 
 @media only screen and (max-width: 850px) {

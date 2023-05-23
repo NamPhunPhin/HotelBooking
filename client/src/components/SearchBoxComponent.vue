@@ -56,14 +56,17 @@
           </div>
         </div>
         <div class="Input-Form">
-          <div class="Check-In-Out">
+          <div
+            class="Check-In-Out"
+            :style="!isOverNight && 'padding-left: 30px'"
+          >
             <div
               :class="isOverNight ? 'In' : 'In w-100'"
               @click="CheckInOpenHandleClick()"
             >
               <i class="fa-solid fa-calendar-days"></i>
               <!-- <div>Ngày nhận phòng</div> -->
-              <div>
+              <div :class="!isOverNight && 'w-100'">
                 <div>
                   {{
                     DateCheckInFormat ? DateCheckInFormat : "Ngày nhận phòng"
@@ -182,7 +185,9 @@
           </div>
         </div>
       </div>
-      <button class="Button-Main Search-Button">Tìm</button>
+      <button class="Button-Main Search-Button" @click="SearchHandleClick()">
+        Tìm
+      </button>
     </form>
     <div
       v-if="isFocusLayout"
@@ -282,10 +287,15 @@ export default {
       this.isFocusLayout = false;
       this.isPopUpQuatity = false;
     },
+
     PopUpQuatityHandleClick() {
       this.isPopUpQuatity = true;
       this.isFocusLayout = true;
       this.isPopUpSuggest = false;
+    },
+    // Khi bấm Tìm.
+    SearchHandleClick() {
+      console.log(this.DataSearch);
     },
   },
 
