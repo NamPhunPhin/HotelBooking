@@ -13,7 +13,7 @@ export default {
     name : "EmptyCartComponent",
 }
 </script>
-<style>
+<style scoped>
     .EmptyCart{
         padding-top: 125px;
     }

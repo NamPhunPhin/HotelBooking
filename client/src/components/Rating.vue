@@ -138,7 +138,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $active-color: var(--main-Color);
 $white-color: #fff;
 $poor-color: rgb(186, 186, 186);

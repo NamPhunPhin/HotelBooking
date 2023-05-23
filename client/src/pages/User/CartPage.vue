@@ -21,7 +21,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .AcItem {
   width: 100%;
 }
