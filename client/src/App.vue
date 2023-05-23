@@ -26,7 +26,9 @@ export default {
 :root {
   --main-Color: rgb(220, 53, 69);
   --gray-Color: rgb(153, 153, 153);
+  --blue-Color: rgb(62, 108, 234);
   --custom-Color: rgb(255, 255, 255);
+  --font-Graycolor: rgb(112, 112, 112);
   --font-Mallory: "Mallory", sans-serif;
   --font-Anton: "Anton", sans-serif;
   --border-Input: 1px solid rgb(215, 215, 215);

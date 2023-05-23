@@ -246,7 +246,7 @@ export default {
 }
 
 .room-check {
-  border: 1px solid var(--blue-Color) !important;
+  border: 1px solid rgb(141, 151, 170) !important;
 }
 
 .card-footer {
