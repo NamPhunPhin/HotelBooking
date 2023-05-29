@@ -24,6 +24,7 @@
         >
       </div>
 
+<<<<<<< HEAD
       <span class="position-relative">
         <i class="fa-solid fa-cart-shopping"></i>
       </span>
@@ -61,6 +62,13 @@
           </ul>
         </div>
       </div>
+=======
+      <router-link to="/cart">
+        <span class="position-relative">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </span>
+      </router-link>
+>>>>>>> 6e438c24eef96b7dd8dc635b6ce426ff2bea15df
     </div>
 
     <div class="Mobile-NavDropDown">

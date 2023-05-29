@@ -6,6 +6,7 @@ import ContactPage from "@/pages/User/ContactPage.vue";
 import HotelDetailPage from "@/pages/User/HotelDetailPage.vue";
 import HotelsPage from "@/pages/User/HotelsPage.vue";
 import IntroPage from "@/pages/User/IntroPage.vue";
+import CartPage from "@/pages/User/CartPage.vue";
 
 const routes = [
   {
@@ -35,6 +36,10 @@ const routes = [
   {
     path: "/contact",
     component: ContactPage,
+  },
+  {
+    path: "/cart",
+    component: CartPage,
   },
 ];
 
