@@ -16,7 +16,7 @@
     </div>
 
     <div class="Cart-And-Account">
-      <div class="Auth">
+      <div class="Auth" v-if="!getUser">
         <router-link to="/auth"><div class="btn">Đăng nhập</div></router-link>
 
         <router-link to="/auth/signup"
@@ -27,6 +27,40 @@
       <span class="position-relative">
         <i class="fa-solid fa-cart-shopping"></i>
       </span>
+
+      <div class="Account" v-if="getUser" @click="OpenPopUpAccount()">
+        <div>
+          <img
+            :src="
+              `/images/` +
+              (getUser.avatar != null ? getUser.avatar : 'avatar_default.jpg')
+            "
+            alt=""
+          />
+        </div>
+        <div>{{ getUser.last_name + " " + getUser.first_name }}</div>
+
+        <div class="Account_List" v-if="isPopUpAccount">
+          <ul>
+            <li
+              style="
+                border-start-start-radius: 10px;
+                border-start-end-radius: 10px;
+              "
+            >
+              My Booking
+            </li>
+            <li>My Booking</li>
+            <li>My Booking</li>
+
+            <li
+              style="border-end-end-radius: 10px; border-end-start-radius: 10px"
+            >
+              Đăng xuất
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <div class="Mobile-NavDropDown">
@@ -74,15 +108,23 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "NavbarComponent",
   data() {
     return {
+      isPopUpAccount: false,
       ShowMobileNav: false,
     };
   },
-
+  computed: {
+    ...mapGetters("Auth", ["getUser"]),
+  },
   methods: {
+    OpenPopUpAccount() {
+      this.isPopUpAccount = !this.isPopUpAccount;
+    },
+
     // Phương thức mở và tắt Navbar của mobile.
     OpenMenuMobileHandleClick() {
       this.ShowMobileNav = !this.ShowMobileNav;
@@ -171,6 +213,63 @@ export default {
 
 .Cart-And-Account > .Auth > a > div:nth-of-type(2) {
   font-size: 12px !important;
+}
+
+.Cart-And-Account > .Account {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--main-Color);
+  padding: 5px 10px;
+  font-size: 13px;
+  border-radius: 5px;
+  color: white;
+  font-family: unset;
+  cursor: pointer;
+  border: 1px solid var(--main-Color);
+}
+
+.Cart-And-Account > .Account:hover {
+  background: white;
+  color: var(--main-Color);
+}
+
+.Cart-And-Account > .Account > div:nth-of-type(1) > img {
+  width: 25px;
+  border-radius: 50%;
+}
+
+.Account_List {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100%;
+  color: black;
+  z-index: 999;
+  background: white;
+  margin-top: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 10px;
+  min-width: 150px;
+}
+
+.Account_List > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Account_List > ul > li {
+  width: 100%;
+  padding: 10px 15px;
+}
+
+.Account_List > ul > li:hover {
+  color: var(--main-Color);
+  background: rgba(220, 53, 69, 0.1);
 }
 
 .fa-cart-shopping {
