@@ -54,7 +54,7 @@
               <div class="row room-price">
                 <div class="col-md room-checkin-checkout">
                   <!-- room name -->
-                  <div class="form-check">
+                  <div class="form-check" v-on:click="REcheckAcpt(index)">
                     <input
                       :class="
                         'check-' + index + ' form-check-input' + ' room-check'
@@ -62,11 +62,11 @@
                       type="checkbox"
                       v-model="item.action"
                       value=""
-                      id="flexCheckDefault"
+                      :id="'flexCheckDefault-'+index"
                     />
                     <label
                       class="form-check-label room-name"
-                      for="flexCheckDefault"
+                      :for="'flexCheckDefault-'+index"
                     >
                       {{ item.name }}
                     </label>
@@ -97,7 +97,7 @@
             </div>
           </div>
           <div class="col-6 text-end">{{ formatCurrency(SumTotal()) }} </div>
-          <div class="btn-action btn btn-primary w-100 mt-3">Next</div>
+          <button class="btn-action btn btn-danger w-100 mt-3">Next</button>
         </div>
       </div>
     </div>
@@ -147,6 +147,24 @@ export default {
       return daytime;
     },
     checkAcpt: (id) => {
+      let item = CartData;
+      let Chekclass = ".check-" + id;
+      let Bgclass = ".bg-" + id;
+      let bg = document.querySelector(Bgclass);
+      let check = document.querySelector(Chekclass);
+      if (item[id].action != true) {
+        bg.setAttribute(
+          "style",
+          "background-color: rgb(235, 240, 252) !important;"
+        );
+        CartData[id].action == true;
+      } else {
+        bg.setAttribute("style", "background-color: White;");
+        CartData[id].action == false;
+      }
+      check.click();
+    },
+    REcheckAcpt: (id) => {
       let item = CartData;
       let Chekclass = ".check-" + id;
       let Bgclass = ".bg-" + id;
@@ -242,7 +260,7 @@ export default {
 }
 
 .room-name {
-  color: var(--blue-Color);
+  color: var(--main-Color);
 }
 
 .room-check {
