@@ -30,6 +30,10 @@
         Để đảm bảo an toàn, xin vui lòng đăng nhập để truy cập vào thông tin
       </h5>
 
+      <div v-if="!isResult" class="text-danger mb-3 text-center">
+        {{ errorMessage }}
+      </div>
+
       <div v-if="!isLogin" class="Input-Group">
         <div class="Input-Field">
           <input type="text" placeholder="Họ" v-model="dataForm.LastName" />
@@ -61,10 +65,14 @@
       </div>
 
       <div v-if="!isLogin" class="CheckBox-Field">
-        <input type="checkbox" @click="AcceptHandleClick()" />&ensp;
-        <span>
+        <input
+          id="mycheckbox"
+          type="checkbox"
+          @click="AcceptHandleClick()"
+        />&ensp;
+        <label for="mycheckbox">
           Tôi đồng ý với các Điều khoản sử dụng và Chính sách bảo mật của <br />
-          Lisa.</span
+          Lisa.</label
         >
       </div>
 
@@ -74,7 +82,10 @@
 
       <div class="Button-Field">
         <button
-          :disabled="isAccept != true && isLogin != true"
+          :disabled="
+            (isAccept != true && isLogin != true) ||
+            getAuthStatus.isloading == true
+          "
           :class="
             !isLogin
               ? isAccept == true
@@ -82,8 +93,16 @@
                 : 'Btn-Signup Dissable-Button'
               : 'Button-Main Btn-Signup'
           "
+          @click="SubmitHandleClick"
         >
-          Tiếp tục
+          <div
+            v-if="getAuthStatus.isloading"
+            class="spinner-border text-light"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div v-else>Tiếp tục</div>
         </button>
       </div>
     </form>
@@ -92,6 +111,7 @@
 
 <script>
 import { useRoute } from "vue-router";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   name: "AuthPage",
   created() {
@@ -107,8 +127,10 @@ export default {
 
   data() {
     return {
-      isLogin: true,
+      isLogin: false,
       isAccept: false,
+      isResult: true,
+      errorMessage: "",
       dataForm: {
         FirstName: "",
         LastName: "",
@@ -118,11 +140,92 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapGetters("Auth", ["getAuthResponse", "getUser", "getAuthStatus"]),
+  },
 
   methods: {
+    ...mapActions("Auth", ["SignUpAction", "LogInAction"]),
+    ...mapMutations("Auth", ["AUTH_REQUEST"]),
+
+    validateEmail(email) {
+      return email.match(
+        /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+    },
+
+    async SubmitHandleClick(e) {
+      e.preventDefault();
+
+      if (this.isLogin) {
+        if (
+          this.dataForm.Email.length != 0 &&
+          this.dataForm.Password.length != 0
+        ) {
+          if (this.validateEmail(this.dataForm.Email)) {
+            const data = {
+              email: this.dataForm.Email,
+              password: this.dataForm.Password,
+            };
+            await this.LogInAction(data);
+            if (this.getAuthResponse.result) {
+              console.log("Thành Cồng"); //Điều hướng
+              this.isResult = true;
+              this.errorMessage = "";
+            } else {
+              this.isResult = this.getAuthResponse.result;
+              this.errorMessage = this.getAuthResponse.message;
+            }
+          } else {
+            this.isResult = false;
+            this.errorMessage = "Email không đúng định dạng";
+          }
+        } else {
+          this.isResult = false;
+          this.errorMessage = "Hãy điền đầy đủ thông tin đăng nhập";
+        }
+      } else {
+        if (
+          this.dataForm.Email.length != 0 &&
+          this.dataForm.Password.length != 0 &&
+          this.dataForm.FirstName.length != 0 &&
+          this.dataForm.LastName.length != 0 &&
+          this.dataForm.Repassword.length != 0
+        ) {
+          if (this.validateEmail(this.dataForm.Email)) {
+            if (this.dataForm.Password == this.dataForm.Repassword) {
+              const data = {
+                last_name: this.dataForm.LastName,
+                first_name: this.dataForm.FirstName,
+                email: this.dataForm.Email,
+                password: this.dataForm.Password,
+              };
+              await this.SignUpAction(data);
+              if (this.getAuthResponse.result) {
+                console.log("Thành Cồng"); //Điều hướng
+                this.isResult = true;
+                this.errorMessage = "";
+              } else {
+                this.isResult = this.getAuthResponse.result;
+                this.errorMessage = this.getAuthResponse.message;
+              }
+            } else {
+              this.isResult = false;
+              this.errorMessage = "Mật khẩu không trùng khớp";
+            }
+          } else {
+            this.isResult = false;
+            this.errorMessage = "Email không đúng định dạng";
+          }
+        } else {
+          this.isResult = false;
+          this.errorMessage = "Hãy điền đầy đủ thông tin đăng ký";
+        }
+      }
+    },
+
     // Phương thức thay đổi từ đăng nhập sang đăng ký và ngược lại.
     ButtonSwitchHandleClick(event) {
-      console.log(this.isLogin);
       event.preventDefault();
       this.isLogin = !this.isLogin;
       this.isAccept = false;
@@ -131,6 +234,8 @@ export default {
       this.dataForm.Email = "";
       this.dataForm.Password = "";
       this.dataForm.Repassword = "";
+      this.errorMessage = "";
+      this.isResult = "";
     },
 
     //Phương thức xác nhận đồng ý với điều khoản.
@@ -153,7 +258,7 @@ export default {
 .Auth-Container > form > h5 {
   width: 500px;
   word-wrap: break-word;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .Auth-Container > form {
@@ -236,6 +341,9 @@ export default {
   width: 20px;
   height: 20px;
   accent-color: var(--main-Color);
+}
+.CheckBox-Field > label {
+  cursor: pointer;
 }
 
 .Forget-Field > span {
