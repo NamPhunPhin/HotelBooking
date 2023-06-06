@@ -221,7 +221,7 @@ span {
 }
 .point {
   width: 30px;
-  background: rgb(62, 108, 234);
+  background: var(--main-Color);
   margin-left: 5px;
   padding: 5px;
   color: $white-color;
@@ -237,7 +237,7 @@ span {
   background: white;
   margin-left: 5px;
   padding: 5px;
-  color: rgb(62, 108, 234);
+  color: var(--main-Color);
   border-radius: 5px;
   font-size: 18px;
   text-align: center;

@@ -42,6 +42,10 @@ const routes = [
     path: "/cart",
     component: CartPage,
   },
+  {
+    path: "/payment",
+    component: CartPage,
+  },
 ];
 
 const router = createRouter({
