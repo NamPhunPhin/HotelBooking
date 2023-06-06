@@ -33,6 +33,16 @@ export default {
       view: {
         topOfPage: false,
       },
+      DataSearch: {
+        SearchText: "",
+        CheckIn: "",
+        cityId: "",
+        countryId: "",
+        CheckOut: "",
+        Rooms: 1,
+        AdultPeople: 2,
+        ChildrenPeople: 0,
+      },
     };
   },
 

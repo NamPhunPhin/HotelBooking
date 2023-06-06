@@ -169,7 +169,7 @@ export default {
             };
             await this.LogInAction(data);
             if (this.getAuthResponse.result) {
-              console.log("Thành Cồng"); //Điều hướng
+              this.$router.push("/"); //Điều hướng
               this.isResult = true;
               this.errorMessage = "";
             } else {
@@ -202,7 +202,7 @@ export default {
               };
               await this.SignUpAction(data);
               if (this.getAuthResponse.result) {
-                console.log("Thành Cồng"); //Điều hướng
+                this.$router.push("/"); //Điều hướng
                 this.isResult = true;
                 this.errorMessage = "";
               } else {

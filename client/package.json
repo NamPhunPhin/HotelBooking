@@ -14,20 +14,12 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@popperjs/core": "^2.11.7",
-<<<<<<< HEAD
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
     "vue-router": "^4.0.13",
     "vuex": "^4.1.0"
-=======
-    "awesome-vue-star-rating": "^1.0.9",
-    "bootstrap": "^5.2.3",
-    "core-js": "^3.8.3",
-    "vue": "^3.2.13",
-    "vue-router": "^4.2.1"
->>>>>>> 6e438c24eef96b7dd8dc635b6ce426ff2bea15df
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

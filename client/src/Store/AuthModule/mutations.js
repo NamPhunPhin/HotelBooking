@@ -27,4 +27,15 @@ export default {
     state.user = null;
     state.errorMessage = error;
   },
+
+  AUTH_LOGOUT(state) {
+    state.status = {
+      isloading: false,
+      isLogined: false,
+      isError: false,
+    };
+    state.user = null;
+    state.response = { result: true, message: "" };
+    state.errorMessage = "";
+  },
 };

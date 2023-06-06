@@ -5,3 +5,7 @@ export const SetLocalStorage = (name, data) => {
 export const GetLocalStorage = (name) => {
   return JSON.parse(localStorage.getItem(name));
 };
+
+export const ClearLocalStorage = () => {
+  localStorage.clear();
+};

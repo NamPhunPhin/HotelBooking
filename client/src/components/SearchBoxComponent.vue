@@ -185,7 +185,7 @@
           </div>
         </div>
       </div>
-      <button class="Button-Main Search-Button" @click="SearchHandleClick()">
+      <button class="Button-Main Search-Button" @click="SearchHandleClick">
         Tìm
       </button>
     </form>
@@ -209,6 +209,8 @@ export default {
       DataSearch: {
         SearchText: "",
         CheckIn: "",
+        cityId: 2,
+        countryId: 1,
         CheckOut: "",
         Rooms: 1,
         AdultPeople: 2,
@@ -294,8 +296,11 @@ export default {
       this.isPopUpSuggest = false;
     },
     // Khi bấm Tìm.
-    SearchHandleClick() {
-      console.log(this.DataSearch);
+    SearchHandleClick(e) {
+      e.preventDefault();
+      this.$router.push(
+        `/hotels/${this.DataSearch.CheckIn}/${this.DataSearch.CheckOut}/${this.DataSearch.countryId}/${this.DataSearch.cityId}/${this.DataSearch.AdultPeople}/${this.DataSearch.ChildrenPeople}/${this.DataSearch.Rooms}`
+      ); //Điều hướng
     },
   },
 

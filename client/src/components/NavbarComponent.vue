@@ -24,10 +24,11 @@
         >
       </div>
 
-<<<<<<< HEAD
-      <span class="position-relative">
-        <i class="fa-solid fa-cart-shopping"></i>
-      </span>
+      <router-link to="/cart" class="position-relative Cart-Place">
+        <span>
+          <i class="fa-solid fa-cart-shopping"></i>
+        </span>
+      </router-link>
 
       <div class="Account" v-if="getUser" @click="OpenPopUpAccount()">
         <div>
@@ -56,19 +57,19 @@
 
             <li
               style="border-end-end-radius: 10px; border-end-start-radius: 10px"
+              @click="LogOutHandleClick()"
             >
               Đăng xuất
             </li>
           </ul>
         </div>
       </div>
-=======
-      <router-link to="/cart">
-        <span class="position-relative">
-          <i class="fa-solid fa-cart-shopping"></i>
-        </span>
-      </router-link>
->>>>>>> 6e438c24eef96b7dd8dc635b6ce426ff2bea15df
+
+      <div class="coin" v-if="getUser">
+        <span></span>
+        <span>{{ getUser.coin }}</span>
+        <div @click="ClosePopUpAccount()" v-if="isLayOutPopUp"></div>
+      </div>
     </div>
 
     <div class="Mobile-NavDropDown">
@@ -116,20 +117,39 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "NavbarComponent",
   data() {
     return {
       isPopUpAccount: false,
       ShowMobileNav: false,
+      isLayOutPopUp: false,
     };
+  },
+  updated() {
+    if (this.isPopUpAccount == false) {
+      this.isLayOutPopUp = false;
+    }
   },
   computed: {
     ...mapGetters("Auth", ["getUser"]),
   },
   methods: {
+    ...mapActions("Auth", ["LogOutAction"]),
+
+    async LogOutHandleClick() {
+      await this.LogOutAction();
+      await this.$router.push("/auth");
+    },
+
+    ClosePopUpAccount() {
+      this.isPopUpAccount = false;
+      this.isLayOutPopUp = false;
+    },
+
     OpenPopUpAccount() {
+      this.isLayOutPopUp = true;
       this.isPopUpAccount = !this.isPopUpAccount;
     },
 
@@ -198,7 +218,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-right: 5rem;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 .Cart-And-Account > .Auth {
@@ -229,19 +249,19 @@ export default {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  background: var(--main-Color);
+  background: rgba(220, 53, 69, 0.1);
+  height: 100%;
   padding: 5px 10px;
   font-size: 13px;
   border-radius: 5px;
-  color: white;
+  color: var(--main-Color);
   font-family: unset;
   cursor: pointer;
-  border: 1px solid var(--main-Color);
 }
 
 .Cart-And-Account > .Account:hover {
-  background: white;
-  color: var(--main-Color);
+  background: var(--main-Color);
+  color: white;
 }
 
 .Cart-And-Account > .Account > div:nth-of-type(1) > img {
@@ -255,7 +275,7 @@ export default {
   right: 0;
   width: 100%;
   color: black;
-  z-index: 999;
+  z-index: 2001;
   background: white;
   margin-top: 10px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
@@ -291,6 +311,56 @@ export default {
 .Menu-Text-Mobile {
   display: none;
   z-index: 999;
+}
+
+.coin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 5px;
+}
+
+.coin > span:nth-of-type(1) {
+  background-image: url("../../public/images/dollar.png");
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+}
+
+.Cart-Place {
+  padding: 8px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  color: var(--main-Color) !important;
+  height: 100%;
+}
+
+.Cart-Place > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Cart-Place > span > i {
+  font-size: 18px;
+}
+
+.Cart-Place:hover {
+  background: var(--main-Color);
+  color: white !important;
+}
+
+.coin > div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
 }
 
 @media only screen and (max-width: 850px) {

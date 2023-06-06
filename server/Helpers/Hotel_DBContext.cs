@@ -10,5 +10,14 @@ namespace server.Helpers
         }
 
         public DbSet<Users> Users { get; set; }
+        public DbSet<Contacts> Contacts { get; set; }
+
+        public DbSet<RoleTypes> RoleTypes { get; set; }
+
+        public DbSet<RoleFunctions> RoleFunctions { get; set; }
+
+        public DbSet<RoleDetails> RoleDetails { get; set; }
+
+        public DbSet<Merchants> Merchants { get; set; }
     }
 }

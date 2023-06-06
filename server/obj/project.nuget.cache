@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "x7x0jzr541eIRjS1WASVVR48OWiq7aFmh8AY6JbOCtfhdKRB98WQG0fPIGzWQjwrVNqZZB+PANrIGaDna2LwqA==",
+  "dgSpecHash": "w7k/gkK1RCOlLBDdo8QYSr4IBSwpR6DNephhDiONQxw37qDryaGlqRFonz3GeFNeto4mvDAXJx3b6hcytHSgPA==",
   "success": true,
   "projectFilePath": "D:\\Project Space\\HotelBookingProject\\server\\server.csproj",
   "expectedPackageFiles": [
@@ -45,6 +45,7 @@
     "C:\\Users\\quoct\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\quoct\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\quoct\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\quoct\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\quoct\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\quoct\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\quoct\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",

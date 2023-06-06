@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Project Space\\HotelBookingProject\\server\\wwwroot\\images\\Screenshot 2023-05-11 140207.png",
+      "PackagePath": "staticwebassets\\images\\Screenshot 2023-05-11 140207.png"
+    },
+    {
+      "Id": "D:\\Project Space\\HotelBookingProject\\server\\wwwroot\\images\\hihihaha.png",
+      "PackagePath": "staticwebassets\\images\\hihihaha.png"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.server.props",
+      "PackagePath": "build\\server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.server.props",
+      "PackagePath": "buildMultiTargeting\\server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.server.props",
+      "PackagePath": "buildTransitive\\server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.server.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

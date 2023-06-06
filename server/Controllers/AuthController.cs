@@ -3,6 +3,7 @@ using server.Data;
 using server.Helpers;
 using server.Models;
 using server.Models.Requests;
+using server.Models.Result;
 
 namespace server.Controllers
 {
@@ -48,9 +49,9 @@ namespace server.Controllers
 
 
 
-                result.Data = new UsersModels()
+                result.Data = new UsersModel()
                 {
-                    user_id = resUserData.Entity.user_id, 
+                    user_id = resUserData.Entity.user_id,
                     first_name = resUserData.Entity.first_name,
                     last_name = resUserData.Entity.last_name,
                     email = resUserData.Entity.email,
@@ -59,7 +60,8 @@ namespace server.Controllers
                     coin = resUserData.Entity.coin,
                     avatar = resUserData.Entity.avatar,
                     merchant_id = resUserData.Entity.merchant_id,
-                    role_type_id = resUserData.Entity.role_type_id
+                    role_type_id = resUserData.Entity.role_type_id,
+                    CreatedAt = resUserData.Entity.CreatedAt
                 };
                 result.Result = true;
                 result.Message = "Đăng ký thành công";
@@ -70,7 +72,8 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public async Task<AuthResultModel> LogIn(LogInRequest reqData) {
+        public AuthResultModel LogIn(LogInRequest reqData)
+        {
             AuthResultModel result = new AuthResultModel();
             var UserData = _dbContext.Users.FirstOrDefault(x => x.email == reqData.email);
             if (UserData == null)
@@ -82,9 +85,9 @@ namespace server.Controllers
             else
             {
                 bool passwordMatch = BCrypt.Net.BCrypt.Verify(reqData.password, UserData.password);
-                if(passwordMatch)
+                if (passwordMatch)
                 {
-                    result.Data = new UsersModels()
+                    result.Data = new UsersModel()
                     {
                         user_id = UserData.user_id,
                         first_name = UserData.first_name,
@@ -95,7 +98,8 @@ namespace server.Controllers
                         coin = UserData.coin,
                         avatar = UserData.avatar,
                         merchant_id = UserData.merchant_id,
-                        role_type_id = UserData.role_type_id
+                        role_type_id = UserData.role_type_id,
+                        CreatedAt = UserData.CreatedAt
                     };
                     result.Result = true;
                     result.Message = "Đăng nhập thành công";

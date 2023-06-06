@@ -14,7 +14,7 @@ const routes = [
     component: HomePage,
   },
   {
-    path: "/hotels/detail",
+    path: "/hotels/detail/:roomid/:checkin/:checkout/:countryid/:cityid/:adult/:child/:room",
     component: HotelDetailPage,
   },
   {
@@ -26,8 +26,9 @@ const routes = [
     component: AuthPage,
   },
   {
-    path: "/hotels",
+    path: "/hotels/:checkin/:checkout/:countryid/:cityid/:adult/:child/:room",
     component: HotelsPage,
+    params: true,
   },
   {
     path: "/about",

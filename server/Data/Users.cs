@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace server.Data
 {
@@ -22,12 +24,14 @@ namespace server.Data
         public string? avatar { get; set; }
 
         [Required]
-        public string? email { get; set; }
+        public string email { get; set; }
 
         [Required]
-        public string? password { get; set; }
+        public string password { get; set; }
 
         public decimal? coin { get; set; } = 0;
+
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
 
     }
 }

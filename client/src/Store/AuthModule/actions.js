@@ -1,5 +1,8 @@
 import { SignUp, LogIn } from "../../API/AuthRequests";
-import { SetLocalStorage } from "../../service/AccountService";
+import {
+  SetLocalStorage,
+  ClearLocalStorage,
+} from "../../service/AccountService";
 export default {
   async SignUpAction({ commit }, data) {
     commit("AUTH_REQUEST");
@@ -21,5 +24,10 @@ export default {
     } catch (error) {
       await commit("AUTH_FAIL", error);
     }
+  },
+
+  async LogOutAction({ commit }) {
+    await commit("AUTH_LOGOUT");
+    await ClearLocalStorage();
   },
 };

@@ -238,7 +238,7 @@
         <div class="Found-Text">Nha Trang: tìm thấy 500 khách sạn</div>
 
         <div class="Hotel-List">
-          <HotelItemComponent />
+          <HotelItemComponent @click="DetailHotelHandleClick(1)" />
           <HotelItemComponent />
           <HotelItemComponent />
         </div>
@@ -248,15 +248,40 @@
 </template>
 
 <script>
+import { useRoute } from "vue-router";
 import HotelItemComponent from "../../components/HotelItemComponent.vue";
 import SearchNavbarComponent from "../../components/SearchNavbarComponent.vue";
 export default {
   name: "HotelsPage",
+
+  created() {
+    const router = useRoute();
+    this.DataSearch.countryId = router.params.countryid;
+    this.DataSearch.cityId = router.params.cityid;
+    this.DataSearch.CheckIn = router.params.checkin;
+    this.DataSearch.CheckOut = router.params.checkout;
+    this.DataSearch.Rooms = router.params.room;
+    this.DataSearch.AdultPeople = router.params.adult;
+    this.DataSearch.ChildrenPeople = router.params.child;
+  },
+
+  mounted() {
+    console.log(this.$route.params);
+  },
   data() {
     return {
       FilterData: {
         PriceLowest: 500000,
         PriceHighest: 10000000,
+      },
+      DataSearch: {
+        cityId: 2,
+        countryId: 1,
+        CheckOut: "",
+        CheckIn: "",
+        Rooms: 1,
+        AdultPeople: 2,
+        ChildrenPeople: 0,
       },
     };
   },
@@ -266,6 +291,12 @@ export default {
         style: "currency",
         currency: "VND",
       }).format(number);
+    },
+    DetailHotelHandleClick(roomID) {
+      let routeData = this.$router.resolve({
+        path: `/hotels/detail/${roomID}/${this.DataSearch.CheckIn}/${this.DataSearch.CheckOut}/${this.DataSearch.countryId}/${this.DataSearch.cityId}/${this.DataSearch.AdultPeople}/${this.DataSearch.ChildrenPeople}/${this.DataSearch.Rooms}`,
+      });
+      window.open(routeData.href, "_blank");
     },
   },
 
