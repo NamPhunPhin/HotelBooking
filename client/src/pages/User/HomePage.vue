@@ -10,10 +10,29 @@
       </div>
     </div>
     <div class="Home-Body container">
-      <TopDestinationsSlideComponent />
+      <TopDestinationsSlideComponent
+        v-if="!getStatusCitiesAndQuatityHotels.isLoading"
+        :data-city="getDataCitiesAndQuatityHotels"
+      />
+
+      <div v-else class="text-center m-5">
+        <div class="spinner-border text-danger" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
       <RecommendHotelComponent />
       <RecommendRoomComponent />
-      <TopDestinationsSlideComponent :is-out-side="true" />
+      <TopDestinationsSlideComponent
+        v-if="!getStatusCountriesAndQuatityHotels.isLoading"
+        :data-country="getDataCountriesAndQuatityHotels"
+        :is-out-side="true"
+      />
+      <div v-else class="text-center isLoading m-5">
+        <div class="spinner-border text-danger" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
     </div>
   </div>
   <div class="Search-Nav" v-if="view.topOfPage">
@@ -27,6 +46,7 @@ import TopDestinationsSlideComponent from "../../components/TopDestinationsSlide
 import RecommendHotelComponent from "../../components/RecommendHotelComponent.vue";
 import SearchNavbarComponent from "../../components/SearchNavbarComponent.vue";
 import RecommendRoomComponent from "../../components/RecommendRoomComponent.vue";
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -54,13 +74,37 @@ export default {
     SearchNavbarComponent,
   },
 
+  mounted() {
+    console.log(this.getDataCountriesAndQuatityHotels);
+  },
+
+  created() {
+    this.CitiesAndQuatityHotelsAction(1);
+    this.CountriesOutSideAndHotelsAction(1);
+  },
+
+  computed: {
+    ...mapGetters("Home", [
+      "getDataCitiesAndQuatityHotels",
+      "getStatusCitiesAndQuatityHotels",
+      "getDataCountriesAndQuatityHotels",
+      "getStatusCountriesAndQuatityHotels",
+    ]),
+  },
+
   methods: {
+    ...mapActions("Home", [
+      "CitiesAndQuatityHotelsAction",
+      "CountriesOutSideAndHotelsAction",
+    ]),
+
     NavSearchHandleScroll() {
       document.documentElement.scrollTop > 550
         ? (this.view.topOfPage = true)
         : (this.view.topOfPage = false);
     },
   },
+
   beforeMount() {
     window.addEventListener("scroll", this.NavSearchHandleScroll);
   },
@@ -122,6 +166,10 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .isLoading {
+    min-width: 200px;
   }
 }
 </style>

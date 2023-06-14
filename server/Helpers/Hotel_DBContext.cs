@@ -19,5 +19,11 @@ namespace server.Helpers
         public DbSet<RoleDetails> RoleDetails { get; set; }
 
         public DbSet<Merchants> Merchants { get; set; }
+
+        public DbSet<Countries> Countries { get; set; }
+
+        public DbSet<Cities> Cities { get; set; }
+
+        public DbSet<Hotels> Hotels { get; set; }
     }
 }

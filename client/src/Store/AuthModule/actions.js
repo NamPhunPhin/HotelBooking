@@ -2,6 +2,8 @@ import { SignUp, LogIn } from "../../API/AuthRequests";
 import {
   SetLocalStorage,
   ClearLocalStorage,
+  UpdateUserLocalStorage,
+  GetLocalStorage,
 } from "../../service/AccountService";
 export default {
   async SignUpAction({ commit }, data) {
@@ -29,5 +31,11 @@ export default {
   async LogOutAction({ commit }) {
     await commit("AUTH_LOGOUT");
     await ClearLocalStorage();
+  },
+
+  async UpdateUserLocalStorage({ commit }, data) {
+    await UpdateUserLocalStorage(data);
+    const user = await GetLocalStorage("user");
+    await commit("UPDATE_USER", user);
   },
 };

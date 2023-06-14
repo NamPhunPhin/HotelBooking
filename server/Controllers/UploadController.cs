@@ -22,13 +22,22 @@ namespace server.Controllers
 
                 // getting full path inside wwwroot/images
                 var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/", FileName);
+                var exists = System.IO.File.Exists(imagePath);
+                if (exists)
+                {
+                    result.Result = false;
+                    result.Message = "Đã tồn tại";
+                    return result;
+                }
+                else
+                {
+                    // copying file
+                    file.CopyTo(new FileStream(imagePath, FileMode.Create));
 
-                // copying file
-                file.CopyTo(new FileStream(imagePath, FileMode.Create));
-
-                result.Result = true;
-                result.Message = "Tải lên thành công";
-                return result;
+                    result.Result = true;
+                    result.Message = "Tải lên thành công";
+                    return result;
+                }
             }
             catch (Exception ex)
             {

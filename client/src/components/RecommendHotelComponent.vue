@@ -7,24 +7,29 @@
     <div class="Select-Nav">
       <div
         :class="
-          isSelected == item.city
+          isSelected == item.name
             ? 'Select-Item Selected-Active'
             : 'Select-Item'
         "
-        @click="SelectTitleHandleClick(item.city)"
-        v-for="(item, index) in HotelData"
+        @click="SelectTitleHandleClick(item.city_id)"
+        v-for="(item, index) in getDataCitiesAndQuatityHotels"
         :key="index"
       >
-        {{ item.city }}
+        {{ item.name }}
       </div>
     </div>
 
     <div class="Recommend-Container row mt-3">
-      <div class="col-lg-3" v-for="(item, index) in HotelData" :key="index">
-        <div class="card border-0 mt-3">
+      <div
+        class="col-lg-3"
+        v-for="(item, index) in getDataHotels"
+        :key="index"
+        v-show="!getStatusHotels.isLoading"
+      >
+        <div class="card border-0 mt-3" v-if="!getStatusHotels.isLoading">
           <img
             class="card-img-top"
-            :src="'/images/' + item.src"
+            :src="(item.image_name = '' && IMAGE_PATH + item.image_name)"
             alt="Card image cap"
           />
           <div class="card-body p-0 mt-1">
@@ -42,6 +47,16 @@
           </div>
         </div>
       </div>
+
+      <div
+        v-show="getStatusHotels.isLoading"
+        class="text-center Loading-Hotels col-lg-12"
+      >
+        <div class="spinner-border text-danger" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
       <div class="col-lg-12 text-center">
         <button class="btn btn-danger p-3 mt-5">
           <b>Xem thêm các khách sạn ({{ isSelected }})</b>
@@ -53,17 +68,46 @@
 
 <script>
 import HotelData from "../Data/HotelData";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "RecommendHotelComponent",
   data() {
     return {
+      IMAGE_PATH: process.env.VUE_APP_IMAGE_PATH,
       HotelData: HotelData,
-      isSelected: "",
+      isSelected: this.getDataCitiesAndQuatityHotels,
     };
   },
+
+  created() {
+    this.GetHotelsByCityId(1);
+    this.isSelected = "Hồ Chí Minh";
+  },
+
+  computed: {
+    ...mapGetters("Home", [
+      "getDataCitiesAndQuatityHotels",
+      "getDataHotels",
+      "getStatusHotels",
+    ]),
+  },
   methods: {
-    SelectTitleHandleClick(country) {
-      this.isSelected = country;
+    ...mapActions("Home", ["GetHotelsByCityId"]),
+
+    SelectTitleHandleClick(cityId) {
+      for (
+        let index = 0;
+        index < this.getDataCitiesAndQuatityHotels.length;
+        index++
+      ) {
+        if (this.getDataCitiesAndQuatityHotels[index].city_id == cityId) {
+          this.isSelected = this.getDataCitiesAndQuatityHotels[index].name;
+          this.GetHotelsByCityId(
+            this.getDataCitiesAndQuatityHotels[index].city_id
+          );
+        }
+      }
     },
   },
 };
@@ -100,5 +144,14 @@ export default {
 .Selected-Active {
   color: var(--main-Color) !important;
   border-bottom: 2px solid var(--main-Color) !important;
+}
+
+.Loading-Hotels {
+  margin-top: 3rem !important;
+  min-height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

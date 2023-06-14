@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\images\\hihihaha.png"
     },
     {
+      "Id": "D:\\Project Space\\HotelBookingProject\\server\\wwwroot\\images\\tải xuống.jpg",
+      "PackagePath": "staticwebassets\\images\\tải xuống.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.server.props",
       "PackagePath": "build\\server.props"
     },

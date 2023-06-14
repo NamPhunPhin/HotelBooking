@@ -38,4 +38,8 @@ export default {
     state.response = { result: true, message: "" };
     state.errorMessage = "";
   },
+
+  UPDATE_USER(state, data) {
+    state.user = data;
+  },
 };

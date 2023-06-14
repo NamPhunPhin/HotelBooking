@@ -16,7 +16,7 @@
     </div>
 
     <div class="Cart-And-Account">
-      <div class="Auth" v-if="!getUser">
+      <div class="Auth" v-if="!getAuthStatus.isLogined">
         <router-link to="/auth"><div class="btn">Đăng nhập</div></router-link>
 
         <router-link to="/auth/signup"
@@ -30,17 +30,28 @@
         </span>
       </router-link>
 
-      <div class="Account" v-if="getUser" @click="OpenPopUpAccount()">
+      <div
+        class="Account"
+        v-if="getAuthStatus.isLogined"
+        @click="OpenPopUpAccount()"
+      >
         <div>
           <img
             :src="
-              `/images/` +
-              (getUser.avatar != null ? getUser.avatar : 'avatar_default.jpg')
+              getUser.avatar != null
+                ? IMAGE_PATH + getUser.avatar
+                : '/images/avatar_default.jpg'
             "
             alt=""
           />
         </div>
-        <div>{{ getUser.last_name + " " + getUser.first_name }}</div>
+        <div>
+          {{
+            getUser.last_name &&
+            getUser.last_name + " " + getUser.first_name &&
+            getUser.first_name
+          }}
+        </div>
 
         <div class="Account_List" v-if="isPopUpAccount">
           <ul>
@@ -49,11 +60,13 @@
                 border-start-start-radius: 10px;
                 border-start-end-radius: 10px;
               "
+              @click="AccountListHandleClick(0)"
             >
-              My Booking
+              Đặt hàng của tôi
             </li>
-            <li>My Booking</li>
-            <li>My Booking</li>
+            <li @click="AccountListHandleClick(1)">Tin nhắn</li>
+            <li @click="AccountListHandleClick(2)">Nhận xét</li>
+            <li @click="AccountListHandleClick(3)">Hồ sơ</li>
 
             <li
               style="border-end-end-radius: 10px; border-end-start-radius: 10px"
@@ -65,7 +78,7 @@
         </div>
       </div>
 
-      <div class="coin" v-if="getUser">
+      <div class="coin" v-if="getAuthStatus.isLogined">
         <span></span>
         <span>{{ getUser.coin }}</span>
         <div @click="ClosePopUpAccount()" v-if="isLayOutPopUp"></div>
@@ -120,8 +133,10 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "NavbarComponent",
+
   data() {
     return {
+      IMAGE_PATH: process.env.VUE_APP_IMAGE_PATH,
       isPopUpAccount: false,
       ShowMobileNav: false,
       isLayOutPopUp: false,
@@ -133,14 +148,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("Auth", ["getUser"]),
+    ...mapGetters("Auth", ["getUser", "getAuthStatus"]),
   },
   methods: {
     ...mapActions("Auth", ["LogOutAction"]),
 
-    async LogOutHandleClick() {
-      await this.LogOutAction();
-      await this.$router.push("/auth");
+    AccountListHandleClick(number) {
+      this.$router.push(`/account/${number}`);
+    },
+
+    LogOutHandleClick() {
+      this.LogOutAction();
+      this.$router.go(this.$router.currentRoute);
     },
 
     ClosePopUpAccount() {
@@ -266,6 +285,8 @@ export default {
 
 .Cart-And-Account > .Account > div:nth-of-type(1) > img {
   width: 25px;
+  height: 25px;
+  object-fit: cover;
   border-radius: 50%;
 }
 

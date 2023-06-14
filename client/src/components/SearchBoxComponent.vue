@@ -299,7 +299,7 @@ export default {
     SearchHandleClick(e) {
       e.preventDefault();
       this.$router.push(
-        `/hotels/${this.DataSearch.CheckIn}/${this.DataSearch.CheckOut}/${this.DataSearch.countryId}/${this.DataSearch.cityId}/${this.DataSearch.AdultPeople}/${this.DataSearch.ChildrenPeople}/${this.DataSearch.Rooms}`
+        `/hotels?checkin=${this.DataSearch.CheckIn}&checkout=${this.DataSearch.CheckOut}&country=${this.DataSearch.countryId}&city=${this.DataSearch.cityId}&adults=${this.DataSearch.AdultPeople}&children=${this.DataSearch.ChildrenPeople}&rooms=${this.DataSearch.Rooms}`
       ); //Điều hướng
     },
   },

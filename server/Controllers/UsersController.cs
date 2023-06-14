@@ -17,11 +17,11 @@ namespace server.Controllers
     public class UsersController : ControllerBase
     {
         private readonly Hotel_DBContext _dbContext;
+
         public UsersController(Hotel_DBContext dbContext)
         {
             _dbContext = dbContext;
         }
-
 
         [HttpGet]
         public async Task<List<UsersModel>> Get()
@@ -42,7 +42,6 @@ namespace server.Controllers
             CreatedAt = u.CreatedAt,
         })
         .ToListAsync();
-
 
             return UserData;
         }
@@ -73,13 +72,11 @@ namespace server.Controllers
                     CreatedAt = UserData.CreatedAt
                 });
             }
-
         }
 
         [HttpPut("{id:int}")]
         public ActionResult<ResponseResult> ChangePassword([FromRoute] int id, [FromBody] ChangePasswordRequest reqData)
         {
-
             ResponseResult responseResult = new ResponseResult();
             var UserData = _dbContext.Users.FirstOrDefault(u => u.user_id == id);
 
@@ -108,11 +105,9 @@ namespace server.Controllers
                 {
                     responseResult.Result = false;
                     responseResult.Message = "Mật khẩu cũ không chính xác";
-                    return BadRequest(responseResult);
+                    return Ok(responseResult);
                 }
-
             }
-
         }
 
         [HttpDelete("{id:int}")]
@@ -144,11 +139,26 @@ namespace server.Controllers
             var currentUserUpdate = _dbContext.Users.FirstOrDefault(u => u.user_id == id);
             if (currentUserUpdate != null)
             {
-                currentUserUpdate.first_name = dataReq.first_name;
-                currentUserUpdate.last_name = dataReq.last_name;
-                currentUserUpdate.address = dataReq.address;
-                currentUserUpdate.contact_number = dataReq.contact_number;
-                currentUserUpdate.avatar = dataReq.avatar;
+                if (dataReq.first_name != null)
+                {
+                    currentUserUpdate.first_name = dataReq.first_name;
+                }
+                if (dataReq.last_name != null)
+                {
+                    currentUserUpdate.last_name = dataReq.last_name;
+                }
+                if (dataReq.address != null)
+                {
+                    currentUserUpdate.address = dataReq.address;
+                }
+                if (dataReq.contact_number != null)
+                {
+                    currentUserUpdate.contact_number = dataReq.contact_number;
+                }
+                if (dataReq.avatar != null)
+                {
+                    currentUserUpdate.avatar = dataReq.avatar;
+                }
 
                 _dbContext.Update(currentUserUpdate);
                 _dbContext.SaveChanges();
@@ -163,8 +173,5 @@ namespace server.Controllers
                 return responseResult;
             }
         }
-
-
-
     }
 }

@@ -140,6 +140,7 @@ export default {
       },
     };
   },
+
   computed: {
     ...mapGetters("Auth", ["getAuthResponse", "getUser", "getAuthStatus"]),
   },
@@ -169,7 +170,7 @@ export default {
             };
             await this.LogInAction(data);
             if (this.getAuthResponse.result) {
-              this.$router.push("/"); //Điều hướng
+              this.$router.go(this.$router.currentRoute); //Điều hướng
               this.isResult = true;
               this.errorMessage = "";
             } else {
@@ -202,7 +203,7 @@ export default {
               };
               await this.SignUpAction(data);
               if (this.getAuthResponse.result) {
-                this.$router.push("/"); //Điều hướng
+                this.$router.go(this.$router.currentRoute); //Điều hướng
                 this.isResult = true;
                 this.errorMessage = "";
               } else {

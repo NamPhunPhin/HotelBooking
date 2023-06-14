@@ -254,19 +254,18 @@ import SearchNavbarComponent from "../../components/SearchNavbarComponent.vue";
 export default {
   name: "HotelsPage",
 
-  created() {
-    const router = useRoute();
-    this.DataSearch.countryId = router.params.countryid;
-    this.DataSearch.cityId = router.params.cityid;
-    this.DataSearch.CheckIn = router.params.checkin;
-    this.DataSearch.CheckOut = router.params.checkout;
-    this.DataSearch.Rooms = router.params.room;
-    this.DataSearch.AdultPeople = router.params.adult;
-    this.DataSearch.ChildrenPeople = router.params.child;
-  },
+  created() {},
 
   mounted() {
-    console.log(this.$route.params);
+    const router = useRoute();
+    this.DataSearch.countryId = router.query.country;
+    this.DataSearch.cityId = router.query.city;
+    this.DataSearch.CheckIn = router.query.checkin;
+    this.DataSearch.CheckOut = router.query.checkout;
+    this.DataSearch.Rooms = router.query.rooms;
+    this.DataSearch.AdultPeople = router.query.adults;
+    this.DataSearch.ChildrenPeople = router.query.children;
+    console.log(this.DataSearch);
   },
   data() {
     return {
@@ -293,10 +292,10 @@ export default {
       }).format(number);
     },
     DetailHotelHandleClick(roomID) {
-      let routeData = this.$router.resolve({
-        path: `/hotels/detail/${roomID}/${this.DataSearch.CheckIn}/${this.DataSearch.CheckOut}/${this.DataSearch.countryId}/${this.DataSearch.cityId}/${this.DataSearch.AdultPeople}/${this.DataSearch.ChildrenPeople}/${this.DataSearch.Rooms}`,
-      });
-      window.open(routeData.href, "_blank");
+      window.open(
+        `/hotels/detail/${roomID}?checkin=${this.DataSearch.CheckIn}&checkout=${this.DataSearch.CheckOut}&country=${this.DataSearch.countryId}&city=${this.DataSearch.cityId}&adults=${this.DataSearch.AdultPeople}&children=${this.DataSearch.ChildrenPeople}&rooms=${this.DataSearch.Rooms}`,
+        "_blank"
+      );
     },
   },
 

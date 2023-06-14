@@ -20,11 +20,18 @@
         @mouseup.prevent="DragStop()"
         @mouseout="DragStop()"
       >
-        <span class="Slide-Item" v-for="(item, index) in CityData" :key="index">
-          <img :src="'/images/' + item.src" alt="" />
+        <span
+          class="Slide-Item"
+          v-for="(item, index) in isOutSide ? CountryData : CityData"
+          :key="index"
+        >
+          <img
+            :src="(item.image_name = '' && IMAGE_PATH + item.image_name)"
+            alt=""
+          />
           <div class="City-Name">{{ item.name }}</div>
           <div class="Hotel-Number text-secondary">
-            {{ item.hotel }} khách sạn
+            {{ item.quatity_hotels }} khách sạn
           </div>
         </span>
       </div>
@@ -37,17 +44,22 @@
 </template>
 
 <script>
-import CityData from "../Data/CityData";
 export default {
   name: "TopDestinationsSlideComponent",
-  props: ["isOutSide"],
+  props: ["isOutSide", "dataCity", "dataCountry"],
   data() {
     return {
+      IMAGE_PATH: process.env.VUE_APP_IMAGE_PATH,
       isDragStart: false,
       prevPageX: 0,
       prevScrollLeft: 0,
-      CityData: CityData,
+      CityData: this.dataCity,
+      CountryData: this.dataCountry,
     };
+  },
+
+  mounted() {
+    console.log(this.dataCountry);
   },
 
   methods: {

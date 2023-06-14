@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import AuthModule from "./AuthModule/index";
+import HomeModule from "./HomeModule/index";
 
 const store = createStore({
   state: {
@@ -7,6 +8,7 @@ const store = createStore({
   },
   modules: {
     Auth: AuthModule,
+    Home: HomeModule,
   },
 });
 

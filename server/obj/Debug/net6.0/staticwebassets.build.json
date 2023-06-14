@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VYkLxSbLoLNm9i/HvMWGojXU/KtTYb0dYrtVREQirJQ=",
+  "Hash": "8m18ad5VwALfOO5Kjmsp3KziSc9XFP0dbpKxffc4d2k=",
   "Source": "server",
   "BasePath": "_content/server",
   "Mode": "Default",
@@ -15,5 +15,57 @@
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [
+    {
+      "Identity": "D:\\Project Space\\HotelBookingProject\\server\\wwwroot\\images\\hihihaha.png",
+      "SourceId": "server",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project Space\\HotelBookingProject\\server\\wwwroot\\",
+      "BasePath": "_content/server",
+      "RelativePath": "images/hihihaha.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\hihihaha.png"
+    },
+    {
+      "Identity": "D:\\Project Space\\HotelBookingProject\\server\\wwwroot\\images\\Screenshot 2023-05-11 140207.png",
+      "SourceId": "server",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project Space\\HotelBookingProject\\server\\wwwroot\\",
+      "BasePath": "_content/server",
+      "RelativePath": "images/Screenshot 2023-05-11 140207.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Screenshot 2023-05-11 140207.png"
+    },
+    {
+      "Identity": "D:\\Project Space\\HotelBookingProject\\server\\wwwroot\\images\\tải xuống.jpg",
+      "SourceId": "server",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project Space\\HotelBookingProject\\server\\wwwroot\\",
+      "BasePath": "_content/server",
+      "RelativePath": "images/tải xuống.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\tải xuống.jpg"
+    }
+  ]
 }
