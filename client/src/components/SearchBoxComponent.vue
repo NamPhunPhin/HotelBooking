@@ -41,15 +41,31 @@
             type="text"
             @focus="PopUpSuggestHandleFocus()"
             placeholder="Nhập địa diểm du lịch hoặc tên khách sạn"
+            v-model="DataSearch.SearchText"
           />
 
-          <div class="Suggest-Searching" v-if="isPopUpSuggest">
-            <ul>
-              <li>
+          <div
+            class="Suggest-Searching"
+            v-if="isPopUpSuggest == true && DataSearch.SearchText != ''"
+          >
+            <ul class="Scroll-Suggest">
+              <li v-if="SuggestSearching == null" class="Search-Not-Found">
+                <div class="Suggest-Text">
+                  Rất tiếc, chúng tôi không tìm thấy kết quả nào cho "{{
+                    DataSearch.SearchText
+                  }}".
+                </div>
+              </li>
+
+              <li
+                v-for="(item, index) in SuggestSearching"
+                :key="index"
+                @click="SuggestHandleClick(item)"
+              >
                 <i class="fa-solid fa-location-dot"></i>
                 <div class="Suggest-Text">
-                  <div>Da Lat, Viet Nam</div>
-                  <div>Thành Phố</div>
+                  <div>{{ item.location_name }}</div>
+                  <div>{{ item.location_type }}</div>
                 </div>
               </li>
             </ul>
@@ -79,7 +95,12 @@
                   >
                 </div>
               </div>
-              <input type="date" ref="CheckIn" v-model="DataSearch.CheckIn" />
+              <input
+                type="date"
+                ref="CheckIn"
+                v-model="DataSearch.CheckIn"
+                @change="DateHanldeChange()"
+              />
             </div>
             <i v-if="isOverNight" class="fa-solid fa-minus"></i>
             <div
@@ -99,7 +120,12 @@
                   {{ DayCheckOutFormat }}
                 </div>
               </div>
-              <input type="date" ref="CheckOut" v-model="DataSearch.CheckOut" />
+              <input
+                type="date"
+                ref="CheckOut"
+                v-model="DataSearch.CheckOut"
+                @change="DateHanldeChange()"
+              />
             </div>
           </div>
           <div class="Quatity" @click="PopUpQuatityHandleClick()">
@@ -185,7 +211,11 @@
           </div>
         </div>
       </div>
-      <button class="Button-Main Search-Button" @click="SearchHandleClick">
+      <button
+        class="Button-Main Search-Button"
+        @click="SearchHandleClick"
+        :disabled="DataSearch.SearchText == '' || SuggestSearching == null"
+      >
         Tìm
       </button>
     </form>
@@ -194,31 +224,108 @@
       class="Focus-Layout"
       @click="FocusLayoutHandleClick()"
     ></div>
+    <vue-basic-alert :duration="300" :closeIn="3000" ref="alert" />
   </div>
 </template>
 
 <script>
+import { GetAllCountries } from "../API/CountriesRequest";
+import { GetAllCities } from "../API/CitiesRequest";
+import { mapMutations, mapGetters } from "vuex";
+import VueBasicAlert from "vue-basic-alert";
 export default {
   name: "SearchBoxComponent",
+  components: {
+    VueBasicAlert,
+  },
+  props: ["SearchData"],
   data() {
     return {
+      LocationData: "",
       isPopUpSuggest: false,
       isFocusLayout: false,
       isPopUpQuatity: false,
       isOverNight: true,
-      DataSearch: {
-        SearchText: "",
-        CheckIn: "",
-        cityId: 2,
-        countryId: 1,
-        CheckOut: "",
-        Rooms: 1,
-        AdultPeople: 2,
-        ChildrenPeople: 0,
-      },
+      DataSearch: this.getSearching,
     };
   },
+
+  async created() {
+    this.DataSearch = this.getSearching;
+
+    const countriesRes = await GetAllCountries();
+    const countriesData = countriesRes.data.countriesData;
+
+    await countriesData.forEach((element) => {
+      const countryItem = {
+        location_name: element.name,
+        country_id: element.country_id,
+        city_id: null,
+        location_type: "Quốc Gia",
+      };
+
+      this.LocationData = [...this.LocationData, countryItem];
+    });
+
+    const citiesRes = await GetAllCities();
+    const citiesData = citiesRes.data.citiesData;
+
+    citiesData.forEach((city) => {
+      const cityItem = {
+        country_id: city.country_id,
+        city_id: city.city_id,
+        location_type: "Thành Phố",
+      };
+      countriesData.forEach((country) => {
+        if (country.country_id === city.country_id) {
+          cityItem.location_name = `${city.name}, ${country.name}`;
+        }
+      });
+      this.LocationData = [...this.LocationData, cityItem];
+    });
+  },
+
   methods: {
+    ...mapMutations("Search", ["UpdateSearch"]),
+
+    SearchingOnChange() {
+      this.UpdateSearch(this.SearchData);
+    },
+
+    AlertShow(type, hearder, message) {
+      this.$refs.alert.showAlert(
+        type, // There are 4 types of alert: success, info, warning, error
+
+        message, // Message of the alert
+        hearder // Header of the alert
+      );
+    },
+
+    DateHanldeChange() {
+      let checkInDate = new Date(this.DataSearch.CheckIn);
+      let checkOutDate = new Date(this.DataSearch.CheckOut);
+
+      if (checkInDate.getTime() > checkOutDate.getTime()) {
+        const nextDate = new Date(checkInDate);
+        nextDate.setDate(nextDate.getDate() + 1);
+        this.DataSearch.CheckOut = nextDate.toISOString().slice(0, 10);
+      }
+    },
+
+    SuggestHandleClick(item) {
+      this.DataSearch.SearchText = item.location_name;
+      this.isPopUpSuggest = false;
+
+      if (item.city_id != null) {
+        this.DataSearch.cityId = item.city_id;
+        this.DataSearch.countryId = "";
+      } else {
+        this.DataSearch.countryId = item.country_id;
+        this.DataSearch.cityId = "";
+      }
+      this.UpdateSearch(this.DataSearch);
+    },
+
     CheckInOpenHandleClick() {
       this.$refs.CheckIn.showPicker();
       this.isFocusLayout = true;
@@ -298,13 +405,69 @@ export default {
     // Khi bấm Tìm.
     SearchHandleClick(e) {
       e.preventDefault();
-      this.$router.push(
-        `/hotels?checkin=${this.DataSearch.CheckIn}&checkout=${this.DataSearch.CheckOut}&country=${this.DataSearch.countryId}&city=${this.DataSearch.cityId}&adults=${this.DataSearch.AdultPeople}&children=${this.DataSearch.ChildrenPeople}&rooms=${this.DataSearch.Rooms}`
-      ); //Điều hướng
+      if (this.SuggestSearching != null && this.DataSearch.SearchText != "") {
+        if (this.SuggestSearching[0].city_id != null) {
+          this.DataSearch.cityId = this.SuggestSearching[0].city_id;
+          this.DataSearch.countryId = "";
+        } else {
+          this.DataSearch.countryId = this.SuggestSearching[0].country_id;
+          this.DataSearch.cityId = "";
+        }
+        this.DataSearch.SearchText = this.SuggestSearching[0].location_name;
+        this.UpdateSearch(this.DataSearch);
+      }
+
+      if (
+        (this.DataSearch.countryId != "" || this.DataSearch.cityId != "") &&
+        this.DataSearch.CheckIn != "" &&
+        this.DataSearch.CheckOut != ""
+      ) {
+        // console.log(this.LocationData);
+        this.$router.push(
+          `/hotels?${
+            this.DataSearch.countryId != ""
+              ? `country=${this.DataSearch.countryId}`
+              : ""
+          }${
+            this.DataSearch.cityId != "" ? `city=${this.DataSearch.cityId}` : ""
+          }&checkin=${this.DataSearch.CheckIn}&checkout=${
+            this.DataSearch.CheckOut
+          }&adults=${this.DataSearch.AdultPeople}&children=${
+            this.DataSearch.ChildrenPeople
+          }&rooms=${this.DataSearch.Rooms}`
+        );
+      } else {
+        this.isFocusLayout = false;
+        this.AlertShow(
+          "warning",
+          "Thông báo",
+          "Vui lòng nhập đầy đủ thông tin để tìm"
+        );
+      }
+
+      //Điều hướng
     },
   },
 
   computed: {
+    ...mapGetters("Search", ["getSearching"]),
+
+    SuggestSearching() {
+      if (this.DataSearch.SearchText != "" && this.LocationData != "") {
+        let dataSearching = this.LocationData.filter((item) =>
+          item.location_name
+            .toLowerCase()
+            .includes(this.DataSearch.SearchText.toLowerCase())
+        );
+        if (dataSearching.length > 0) {
+          return dataSearching;
+        } else {
+          return null;
+        }
+      } else {
+        return this.LocationData;
+      }
+    },
     DateCheckInFormat() {
       var checkIn = this.DataSearch.CheckIn;
       return this.DateFormat(checkIn);
@@ -638,6 +801,11 @@ export default {
 .sub-text {
   color: var(--gray-Color);
   font-size: 13px !important;
+}
+
+.Scroll-Suggest {
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 @media only screen and (max-width: 850px) {

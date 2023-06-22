@@ -1,6 +1,8 @@
 <template>
   <div class="Hotel-Detail-Container">
-    <SearchNavbarComponent />
+    <div :class="view.topOfPage && 'Search-Nav'">
+      <SearchNavbarComponent />
+    </div>
     <div class="Hotel-Detail-Wrapper container">
       <div class="Hotel-Detail-Header">
         <div class="Text-Hotel">
@@ -314,6 +316,26 @@ export default {
     SearchNavbarComponent,
     RoomListComponent,
     RecommendRoomComponent,
+  },
+
+  data() {
+    return {
+      view: {
+        topOfPage: false,
+      },
+    };
+  },
+
+  methods: {
+    NavSearchHandleScroll() {
+      document.documentElement.scrollTop > 100
+        ? (this.view.topOfPage = true)
+        : (this.view.topOfPage = false);
+    },
+  },
+
+  beforeMount() {
+    window.addEventListener("scroll", this.NavSearchHandleScroll);
   },
 };
 </script>

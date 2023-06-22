@@ -28,8 +28,8 @@
       >
         <div class="card border-0 mt-3" v-if="!getStatusHotels.isLoading">
           <img
-            class="card-img-top"
-            :src="(item.image_name = '' && IMAGE_PATH + item.image_name)"
+            class="card-img-top hotels-Image"
+            :src="item.thumbnail != '' && IMAGE_PATH + item.thumbnail"
             alt="Card image cap"
           />
           <div class="card-body p-0 mt-1">
@@ -41,8 +41,18 @@
                 ><i class="fa-solid fa-location-dot"></i> {{ item.address }}</b
               >
             </div>
-            <div class="card-text text-danger fs-6">
-              <b>VND {{ item.price }}</b>
+            <div
+              class="card-text text-danger fs-6"
+              v-if="item.min_price != null"
+            >
+              <b>
+                <div v-if="item.min_discount != 0" class="price-hotels">
+                  <span>{{ FormatCurrency(item.min_price_discount) }}</span>
+                  {{ " " }}
+                  <strike>{{ FormatCurrency(item.min_price) }}</strike>
+                </div>
+                <span v-else>{{ FormatCurrency(item.min_price) }}</span>
+              </b>
             </div>
           </div>
         </div>
@@ -94,6 +104,13 @@ export default {
   },
   methods: {
     ...mapActions("Home", ["GetHotelsByCityId"]),
+
+    FormatCurrency(number) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(number);
+    },
 
     SelectTitleHandleClick(cityId) {
       for (
@@ -153,5 +170,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.hotels-Image {
+  height: 200px !important;
+  object-fit: cover !important;
+}
+
+.price-hotels > strike {
+  font-size: 10px;
+  color: rgb(171, 171, 171);
 }
 </style>

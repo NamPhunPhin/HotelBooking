@@ -16,7 +16,7 @@
     </div>
 
     <div class="Cart-And-Account">
-      <div class="Auth" v-if="!getAuthStatus.isLogined">
+      <div class="Auth" v-if="getUser == null">
         <router-link to="/auth"><div class="btn">Đăng nhập</div></router-link>
 
         <router-link to="/auth/signup"
@@ -30,11 +30,7 @@
         </span>
       </router-link>
 
-      <div
-        class="Account"
-        v-if="getAuthStatus.isLogined"
-        @click="OpenPopUpAccount()"
-      >
+      <div class="Account" v-if="getUser != null" @click="OpenPopUpAccount()">
         <div>
           <img
             :src="
@@ -46,11 +42,7 @@
           />
         </div>
         <div>
-          {{
-            getUser.last_name &&
-            getUser.last_name + " " + getUser.first_name &&
-            getUser.first_name
-          }}
+          {{ getUser.last_name + " " + getUser.first_name }}
         </div>
 
         <div class="Account_List" v-if="isPopUpAccount">
@@ -78,7 +70,7 @@
         </div>
       </div>
 
-      <div class="coin" v-if="getAuthStatus.isLogined">
+      <div class="coin" v-if="getUser != null">
         <span></span>
         <span>{{ getUser.coin }}</span>
         <div @click="ClosePopUpAccount()" v-if="isLayOutPopUp"></div>
@@ -146,6 +138,7 @@ export default {
     if (this.isPopUpAccount == false) {
       this.isLayOutPopUp = false;
     }
+    console.log(this.getUser);
   },
   computed: {
     ...mapGetters("Auth", ["getUser", "getAuthStatus"]),

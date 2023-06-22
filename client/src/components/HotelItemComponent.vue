@@ -1,12 +1,18 @@
 <template>
   <div class="Hotel-Item-Container">
-    <img src="/images/khachsan1.jpg" alt="" />
+    <img
+      :src="
+        itemHotel.thumbnail
+          ? IMAGE_PATH + itemHotel.thumbnail
+          : `/images/khachsan1.jpg`
+      "
+      alt=""
+    />
     <div class="Content-Wrapper">
       <div class="Content-Top">
         <div class="Left-Content">
           <h5>
-            Căn hộ LuxHomes Saigon – Vinhomes Central Park (LuxHomes Saigon -
-            Vinhomes Central Park)
+            {{ itemHotel.name }}
           </h5>
           <div class="Star-Hotel">
             <i class="fa-solid fa-star"></i>
@@ -16,10 +22,15 @@
             <i class="fa-solid fa-star"></i>
           </div>
           <div class="Hotel-Address">
-            <i class="fa-solid fa-location-dot"></i> Bình Thạnh, Hồ Chí Minh
+            <i class="fa-solid fa-location-dot"></i> {{ itemHotel.address }}
           </div>
           <div class="Around-City">
-            <i class="fa-solid fa-city"></i> Cách trung tâm 0.3 km
+            <i class="fa-solid fa-city"></i>
+            {{
+              itemHotel.distance_citycenter == 0
+                ? ` Tại trung tâm thành phố`
+                : ` Cách trung tâm ${itemHotel.distance_citycenter}  km`
+            }}
           </div>
         </div>
         <div class="Right-Content">
@@ -34,17 +45,23 @@
 
       <div class="Content-Bottom">
         <div class="Content-Service">
-          <div><i class="fa-solid fa-bed"></i> Giường dành cho 2 người</div>
-
-          <div>Huỷ Miễn Phí, Wifi, Bãi Đậu Xe</div>
-
-          <div>Chỉ còn một phòng</div>
+          <p>{{ itemHotel.description }}</p>
         </div>
 
         <div class="Content-Price">
-          <div>Giảm 60%</div>
-          <div><strike>1.888.000 ₫</strike></div>
-          <div>888.000 ₫</div>
+          <div v-show="itemHotel.min_discount">
+            Giảm {{ itemHotel.min_discount }}%
+          </div>
+          <div v-show="itemHotel.min_discount">
+            <strike>{{ FormatCurrency(itemHotel.min_price) }}</strike>
+          </div>
+          <div>
+            {{
+              itemHotel.min_discount
+                ? FormatCurrency(itemHotel.min_price_discount)
+                : FormatCurrency(itemHotel.min_price)
+            }}
+          </div>
         </div>
       </div>
     </div>
@@ -54,6 +71,20 @@
 <script>
 export default {
   name: "HotelItemComponent",
+  props: ["itemHotel"],
+  data() {
+    return {
+      IMAGE_PATH: process.env.VUE_APP_IMAGE_PATH,
+    };
+  },
+  methods: {
+    FormatCurrency(number) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(number);
+    },
+  },
 };
 </script>
 
@@ -73,8 +104,9 @@ export default {
 
 .Hotel-Item-Container > img {
   width: 20%;
+
   border-radius: 10px;
-  /* object-fit: contain; */
+  object-fit: cover;
   height: auto;
 }
 
@@ -146,6 +178,22 @@ export default {
   border-radius: 5px;
   display: flex;
   align-items: center;
+  /* height: 120px; */
+}
+
+.Content-Service {
+  height: 100%;
+}
+
+.Content-Service > p {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* start showing ellipsis when 3rd line is reached */
+  height: 100%;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 0;
 }
 
 .Content-Bottom > .Content-Service {

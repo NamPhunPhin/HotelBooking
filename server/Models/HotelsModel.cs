@@ -18,6 +18,14 @@
 
         public decimal rating { get; set; }
 
+        public string? thumbnail { get; set; }
+
+        public decimal? min_price { get; set; }
+
+        public double? min_discount { get; set; }
+
+        public decimal? min_price_discount { get; set; }
+
         public decimal distance_citycenter { get; set; }
 
         public int views { get; set; }

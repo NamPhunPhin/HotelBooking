@@ -25,5 +25,9 @@ namespace server.Helpers
         public DbSet<Cities> Cities { get; set; }
 
         public DbSet<Hotels> Hotels { get; set; }
+
+        public DbSet<ImagesHotel> ImagesHotel { get; set; }
+
+        public DbSet<Rooms> Rooms { get; set; }
     }
 }

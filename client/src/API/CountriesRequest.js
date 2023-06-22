@@ -7,3 +7,7 @@ export const GetQuatityHotelsInTheCityById = (id) => {
 export const GetQuatityHotelsInTheCountryOutSite = (id) => {
   return BaseUrl.get(`/api/Countries/CountryOutSide/${id}`);
 };
+
+export const GetAllCountries = () => {
+  return BaseUrl.get(`/api/Countries/Get`);
+};
