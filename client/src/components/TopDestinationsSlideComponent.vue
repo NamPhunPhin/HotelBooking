@@ -26,7 +26,7 @@
           :key="index"
         >
           <img
-            :src="(item.image_name = '' && IMAGE_PATH + item.image_name)"
+            :src="item.image_name != '' && IMAGE_PATH + item.image_name"
             alt=""
           />
           <div class="City-Name">{{ item.name }}</div>
@@ -56,10 +56,6 @@ export default {
       CityData: this.dataCity,
       CountryData: this.dataCountry,
     };
-  },
-
-  mounted() {
-    console.log(this.dataCountry);
   },
 
   methods: {

@@ -74,10 +74,6 @@ export default {
     SearchNavbarComponent,
   },
 
-  mounted() {
-    console.log(this.getDataCountriesAndQuatityHotels);
-  },
-
   created() {
     this.CitiesAndQuatityHotelsAction(1);
     this.CountriesOutSideAndHotelsAction(1);

@@ -35,6 +35,7 @@ namespace server.Controllers
                         var CitiesItem = new CitiesModel
                         {
                             city_id = item.city_id,
+                            country_id = item.country_id,
                             image_name = item.image_name,
                             CreatedAt = item.CreatedAt,
                             name = item.name,

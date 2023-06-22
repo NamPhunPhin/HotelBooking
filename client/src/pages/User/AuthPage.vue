@@ -165,7 +165,7 @@ export default {
         ) {
           if (this.validateEmail(this.dataForm.Email)) {
             const data = {
-              email: this.dataForm.Email,
+              email: this.dataForm.Email.toLowerCase(),
               password: this.dataForm.Password,
             };
             await this.LogInAction(data);
@@ -198,7 +198,7 @@ export default {
               const data = {
                 last_name: this.dataForm.LastName,
                 first_name: this.dataForm.FirstName,
-                email: this.dataForm.Email,
+                email: this.dataForm.Email.toLowerCase(),
                 password: this.dataForm.Password,
               };
               await this.SignUpAction(data);

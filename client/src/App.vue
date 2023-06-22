@@ -60,4 +60,38 @@ h6 {
   background: var(--main-Color);
   border-radius: 10px;
 }
+
+.vue-alert.top {
+  bottom: 25px;
+  top: unset;
+}
+
+.Search-Nav {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+}
+
+.Focus-Layout-Nav {
+  background-color: #000;
+  bottom: 0;
+  left: 0;
+  opacity: 0.2;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 900;
+}
+
+.Search-Not-Found {
+  background: transparent !important;
+  color: #000;
+  cursor: default !important;
+}
+
+.Search-Not-Found:hover {
+  background: transparent !important;
+  color: #000 !important;
+}
 </style>

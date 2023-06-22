@@ -20,11 +20,7 @@
           <div class="Profile-Info-Content">
             <div class="Profile-Info-Title">Họ & Tên</div>
             <div class="Profile-Info-Name">
-              {{
-                getUser.last_name != null &&
-                getUser.last_name + " " + getUser.first_name != null &&
-                getUser.first_name
-              }}
+              {{ getUser.last_name + " " + getUser.first_name }}
             </div>
           </div>
         </div>
