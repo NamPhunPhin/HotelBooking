@@ -8,7 +8,6 @@ export default {
   },
 
   getDataHotels(state) {
-    console.log(state.Hotels.data);
     return state.Hotels.data;
   },
 
