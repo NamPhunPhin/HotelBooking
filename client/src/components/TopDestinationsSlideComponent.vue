@@ -24,6 +24,7 @@
           class="Slide-Item"
           v-for="(item, index) in isOutSide ? CountryData : CityData"
           :key="index"
+          @click="DestinationHandleClick(item)"
         >
           <img
             :src="item.image_name != '' && IMAGE_PATH + item.image_name"
@@ -59,6 +60,10 @@ export default {
   },
 
   methods: {
+    DestinationHandleClick(item) {
+      this.$emit("destination-event", item);
+    },
+
     DragStart(e) {
       this.isDragStart = !this.isDragStart;
       this.prevPageX = e.pageX;

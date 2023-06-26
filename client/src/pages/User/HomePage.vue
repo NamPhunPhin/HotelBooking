@@ -11,6 +11,7 @@
     </div>
     <div class="Home-Body container">
       <TopDestinationsSlideComponent
+        @destination-event="DestinationHandleClick"
         v-if="!getStatusCitiesAndQuatityHotels.isLoading"
         :data-city="getDataCitiesAndQuatityHotels"
       />
@@ -24,6 +25,7 @@
       <RecommendHotelComponent />
       <RecommendRoomComponent />
       <TopDestinationsSlideComponent
+        @destination-event="DestinationHandleClick"
         v-if="!getStatusCountriesAndQuatityHotels.isLoading"
         :data-country="getDataCountriesAndQuatityHotels"
         :is-out-side="true"
@@ -75,6 +77,7 @@ export default {
   },
 
   created() {
+    this.DataSearch = this.getSearching;
     this.CitiesAndQuatityHotelsAction(1);
     this.CountriesOutSideAndHotelsAction(1);
   },
@@ -86,6 +89,8 @@ export default {
       "getDataCountriesAndQuatityHotels",
       "getStatusCountriesAndQuatityHotels",
     ]),
+
+    ...mapGetters("Search", ["getSearching"]),
   },
 
   methods: {
@@ -93,6 +98,22 @@ export default {
       "CitiesAndQuatityHotelsAction",
       "CountriesOutSideAndHotelsAction",
     ]),
+
+    DestinationHandleClick(data) {
+      console.log(data);
+      this.$router.push(
+        `/hotels?${
+          data.country_id != undefined ? `country=${data.country_id}` : ""
+        }${data.city_id != undefined ? `city=${data.city_id}` : ""}&checkin=${
+          this.DataSearch.CheckIn
+        }&checkout=${this.DataSearch.CheckOut}&adults=${
+          this.DataSearch.AdultPeople
+        }&children=${this.DataSearch.ChildrenPeople}&rooms=${
+          this.DataSearch.Rooms
+        }`
+      );
+      console.log(data);
+    },
 
     NavSearchHandleScroll() {
       document.documentElement.scrollTop > 550

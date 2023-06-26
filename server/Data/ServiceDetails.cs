@@ -9,9 +9,9 @@ namespace server.Data
 
         public int service_id { get; set; }
 
-        public string service_detail_name { get; }
+        public string? service_detail_name { get; set; }
 
-        public string icon { get; set; }
+        public string? icon { get; set; }
 
         public decimal price { get; set; }
 

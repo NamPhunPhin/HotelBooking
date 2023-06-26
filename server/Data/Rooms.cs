@@ -21,6 +21,8 @@ namespace server.Data
 
         public decimal? price_discount { get; set; }
 
+        public string? description { get; set; }
+
         public DateTime? CreatedAt { get; set; } = DateTime.Now;
     }
 }

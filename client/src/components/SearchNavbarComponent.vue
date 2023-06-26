@@ -162,7 +162,7 @@
         @click="SearchHandleClick"
         :disabled="DataSearch.SearchText == '' || SuggestSearching == null"
       >
-        Tìm
+        {{ isDetailPage ? (isUpdateTime ? "Cập Nhật" : `Tìm`) : "Tìm" }}
       </button>
     </div>
   </div>
@@ -187,13 +187,16 @@ export default {
   components: {
     VueBasicAlert,
   },
+  props: ["isDetailPage"],
   data() {
     return {
+      SearchTextDefault: "",
       LocationData: "",
       isPopUpSuggest: false,
       isFocusLayout: false,
       isPopUpQuatity: false,
       isOverNight: true,
+      isUpdateSearch: true,
       DataSearch: {
         SearchText: "",
         CheckIn: "",
@@ -267,14 +270,19 @@ export default {
           item.city_id == null &&
           item.country_id == this.DataSearch.countryId
         ) {
+          this.SearchTextDefault = item.location_name;
           this.SuggestHandleClick(item);
         }
 
         if (item.city_id != null && item.city_id == this.DataSearch.cityId) {
           this.SuggestHandleClick(item);
+          this.SearchTextDefault = item.location_name;
         }
       });
     }
+
+    console.log(this.DataSearch.SearchText);
+    console.log(this.SearchTextDefault);
   },
 
   methods: {
@@ -312,19 +320,39 @@ export default {
         this.DataSearch.CheckIn != "" &&
         this.DataSearch.CheckOut != ""
       ) {
-        this.$router.push(
-          `/hotels?${
-            this.DataSearch.countryId != ""
-              ? `country=${this.DataSearch.countryId}`
-              : ""
-          }${
-            this.DataSearch.cityId != "" ? `city=${this.DataSearch.cityId}` : ""
-          }&checkin=${this.DataSearch.CheckIn}&checkout=${
-            this.DataSearch.CheckOut
-          }&adults=${this.DataSearch.AdultPeople}&children=${
-            this.DataSearch.ChildrenPeople
-          }&rooms=${this.DataSearch.Rooms}`
-        );
+        if (this.isDetailPage && this.isUpdateTime) {
+          this.$router.push(
+            `/hotels/detail/${this.$route.params.id}?${
+              this.DataSearch.countryId != ""
+                ? `country=${this.DataSearch.countryId}`
+                : ""
+            }${
+              this.DataSearch.cityId != ""
+                ? `city=${this.DataSearch.cityId}`
+                : ""
+            }&checkin=${this.DataSearch.CheckIn}&checkout=${
+              this.DataSearch.CheckOut
+            }&adults=${this.DataSearch.AdultPeople}&children=${
+              this.DataSearch.ChildrenPeople
+            }&rooms=${this.DataSearch.Rooms}`
+          );
+        } else {
+          this.$router.push(
+            `/hotels?${
+              this.DataSearch.countryId != ""
+                ? `country=${this.DataSearch.countryId}`
+                : ""
+            }${
+              this.DataSearch.cityId != ""
+                ? `city=${this.DataSearch.cityId}`
+                : ""
+            }&checkin=${this.DataSearch.CheckIn}&checkout=${
+              this.DataSearch.CheckOut
+            }&adults=${this.DataSearch.AdultPeople}&children=${
+              this.DataSearch.ChildrenPeople
+            }&rooms=${this.DataSearch.Rooms}`
+          );
+        }
 
         this.$emit("Search-Hotels", {
           country: this.DataSearch.countryId,
@@ -349,7 +377,6 @@ export default {
     SuggestHandleClick(item) {
       this.DataSearch.SearchText = item.location_name;
       this.isPopUpSuggest = false;
-
       if (item.city_id != null) {
         this.DataSearch.cityId = item.city_id;
       } else {
@@ -450,6 +477,17 @@ export default {
 
   computed: {
     ...mapGetters("Search", ["getSearching"]),
+
+    isUpdateTime() {
+      let oldSearch = this.SearchTextDefault;
+      let newSearch = this.DataSearch.SearchText;
+
+      if (oldSearch == newSearch) {
+        return true;
+      } else {
+        return false;
+      }
+    },
 
     SuggestSearching() {
       if (this.DataSearch.SearchText != "" && this.LocationData != "") {

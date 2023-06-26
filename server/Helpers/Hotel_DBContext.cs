@@ -26,8 +26,22 @@ namespace server.Helpers
 
         public DbSet<Hotels> Hotels { get; set; }
 
+        public DbSet<Services> Services { get; set; }
+
+        public DbSet<ServiceDetails> ServiceDetails { get; set; }
+
+        public DbSet<HotelsServices> HotelsServices { get; set; }
+
         public DbSet<ImagesHotel> ImagesHotel { get; set; }
 
         public DbSet<Rooms> Rooms { get; set; }
+
+        public DbSet<RoomTypes> RoomTypes { get; set; }
+
+        public DbSet<Amenities> Amenities { get; set; }
+
+        public DbSet<ImagesRoom> ImagesRoom { get; set; }
+
+        public DbSet<RoomAmenities> RoomAmenities { get; set; }
     }
 }

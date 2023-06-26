@@ -1,15 +1,43 @@
 <template>
   <div class="RoomList-Container">
     <div class="Left-Site">
-      <img src="/images/room4.jpg" alt="" />
+      <img
+        :src="
+          roomData.thumbnail
+            ? IMAGE_PATH + roomData.thumbnail
+            : '/images/room4.jpg'
+        "
+        alt=""
+      />
       <h6>1 giường king hoặc 2 giường đơn</h6>
       <ul>
-        <li><i class="fa-solid fa-city"></i> Cách trung tâm thành phố 3km</li>
-        <li><i class="fa-solid fa-city"></i> Cách trung tâm thành phố 3km</li>
-        <li><i class="fa-solid fa-city"></i> Cách trung tâm thành phố 3km</li>
-        <li><i class="fa-solid fa-city"></i> Cách trung tâm thành phố 3km</li>
-        <li><i class="fa-solid fa-city"></i> Cách trung tâm thành phố 3km</li>
-        <li><i class="fa-solid fa-city"></i> Cách trung tâm thành phố 3km</li>
+        <li>
+          <i class="fa-solid fa-house"></i> Diện tích phòng:
+          {{ roomData.room_area }} m²
+        </li>
+        <li v-for="(item, index) in AmenitiesShow" :key="index">
+          <span v-html="item.icon"></span>
+          {{ " " + item.name }}
+        </li>
+        <li
+          class="text-danger More-Amenities"
+          @mouseover="PopUpHandleMouseOver(roomData.room_type_id)"
+          @mouseout="PopUpHandleMouseOut(roomData.room_type_id)"
+        >
+          <span><i class="fa-solid fa-flag"></i> Các tiện ích khác</span>
+          <div
+            class="PopUpAmenities"
+            :id="`Amenity_PopUp_${roomData.room_type_id}`"
+          >
+            <div
+              class="Amenities-Item"
+              v-for="(item, index) in AmenitiesAll"
+              :key="index"
+            >
+              <span v-html="item.icon"></span> {{ " " + item.name }}
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
     <div class="Right-Site">
@@ -20,44 +48,74 @@
       </div>
 
       <div class="Room-List">
-        <div class="Room-Item">
+        <div
+          class="Room-Item"
+          v-for="(item, index) in roomData.rooms"
+          :key="index"
+        >
           <div>
-            Lợi ích Bãi đậu xe, WiFi miễn phí, Nước uống Giá cực thấp! (không
-            hoàn tiền) <br />
-            Lợi ích tùy chọn:Bữa sáng với giá 79.492 ₫ <br />
-            Tặng thưởng Cashback: 136.083 ₫ Giảm giá
+            {{ item.description }}
           </div>
           <div class="text-center">
-            <i class="fa-solid fa-user"></i> <i class="fa-solid fa-user"></i>
+            <span v-for="(number, index) in item.number_people" :key="index">
+              <i class="fa-solid fa-user"></i>&nbsp;</span
+            >
           </div>
           <div class="Buy-Area">
             <div>
-              <div><span>80%</span></div>
-              <div><strike>699.000</strike> 7.899.999</div>
-            </div>
-            <div>
-              <button>Đặt Ngay</button>
-              <button>Thêm Vào Đẩy Hàng</button>
-            </div>
-          </div>
-        </div>
+              <div
+                v-if="!item.discount"
+                v-show="item.quatity <= 10"
+                class="Quatity_Room Quatity_Room-Align"
+              >
+                <span v-if="item.quatity == 1"
+                  >Hiện tại, chỉ còn lại {{ item.quatity }} phòng cuối cùng
+                  !</span
+                >
 
-        <div class="Room-Item">
-          <div>
-            Lợi ích Bãi đậu xe, WiFi miễn phí, Nước uống Giá cực thấp! (không
-            hoàn tiền) <br />
-            Lợi ích tùy chọn:Bữa sáng với giá 79.492 ₫ <br />
-            Tặng thưởng Cashback: 136.083 ₫ Giảm giá
-          </div>
-          <div class="text-center">
-            <i class="fa-solid fa-user"></i> <i class="fa-solid fa-user"></i>
-          </div>
-          <div class="Buy-Area">
-            <div>
-              <div><span>80%</span></div>
-              <div><strike>699.000</strike> 7.899.999</div>
+                <span v-else-if="item.quatity == 0"
+                  >Hiện tại, đã hết phòng trống !</span
+                >
+
+                <span v-else
+                  >Hiện tại, chỉ còn lại {{ item.quatity }} phòng trống !</span
+                >
+              </div>
+              <div v-show="item.discount">
+                <span>{{ item.discount }}%</span>
+              </div>
+              <div>
+                <strike v-show="item.discount">{{
+                  FormatCurrency(item.price)
+                }}</strike>
+                <div class="Price-Room">
+                  {{
+                    item.discount
+                      ? FormatCurrency(item.price_discount)
+                      : FormatCurrency(item.price)
+                  }}
+                </div>
+              </div>
             </div>
             <div>
+              <div
+                v-if="item.discount"
+                v-show="item.quatity <= 10"
+                class="Quatity_Room"
+              >
+                <span v-if="item.quatity == 1"
+                  >Hiện tại, chỉ còn lại {{ item.quatity }} phòng cuối cùng
+                  !</span
+                >
+
+                <span v-else-if="item.quatity == 0"
+                  >Hiện tại, đã hết phòng trống !</span
+                >
+
+                <span v-else
+                  >Hiện tại, chỉ còn lại {{ item.quatity }} phòng trống !</span
+                >
+              </div>
               <button>Đặt Ngay</button>
               <button>Thêm Vào Đẩy Hàng</button>
             </div>
@@ -69,8 +127,45 @@
 </template>
 
 <script>
+import { FormatCurrency } from "@/service/FormatService";
 export default {
   name: "RoomListComponent",
+  props: ["roomData"],
+  data() {
+    return {
+      IMAGE_PATH: process.env.VUE_APP_IMAGE_PATH,
+    };
+  },
+
+  methods: {
+    FormatCurrency(number) {
+      return FormatCurrency(number);
+    },
+
+    PopUpHandleMouseOver(id) {
+      const popUp = document.getElementById(`Amenity_PopUp_${id}`);
+      popUp.style.display = "grid";
+    },
+
+    PopUpHandleMouseOut(id) {
+      const popUp = document.getElementById(`Amenity_PopUp_${id}`);
+      popUp.style.display = "none";
+    },
+  },
+
+  computed: {
+    AmenitiesShow() {
+      return this.roomData.amenities.filter(
+        (amenities) => amenities.show == true
+      );
+    },
+
+    AmenitiesAll() {
+      return this.roomData.amenities.filter(
+        (amenities) => amenities.show != true
+      );
+    },
+  },
 };
 </script>
 
@@ -131,6 +226,7 @@ export default {
 }
 
 .Room-List {
+  height: 100%;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -138,6 +234,7 @@ export default {
 }
 
 .Room-Item {
+  height: 100%;
   margin: 5px 0;
   background: white;
   padding: 10px;
@@ -211,5 +308,62 @@ export default {
   color: white;
   margin-top: 10px;
   border-radius: 5px;
+}
+
+.More-Amenities {
+  position: relative;
+  cursor: pointer;
+}
+
+.PopUpAmenities {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: grid;
+  width: 500px;
+  grid-template-columns: 50% 50%;
+  background: white;
+  padding: 20px;
+  position: absolute;
+  border-radius: 10px;
+  bottom: 0;
+  left: 100%;
+  gap: 1rem;
+  display: none;
+  z-index: 9999;
+  height: 450px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.PopUpAmenities::-webkit-scrollbar {
+  display: none;
+}
+
+.Amenities-Item {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.Price-Room {
+  font-size: 25px;
+  font-weight: bold;
+  color: var(--main-Color);
+}
+
+.Quatity_Room {
+  font-weight: 700;
+  font-size: 13px;
+  text-align: center;
+  color: darkblue;
+}
+
+.Quatity_Room-Align {
+  text-align: end !important;
+  padding: 20px 10px;
+}
+
+.Quatity_Room > span {
+  background: transparent !important;
+  color: darkblue !important;
+  text-align: right !important;
 }
 </style>

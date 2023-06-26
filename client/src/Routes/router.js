@@ -16,7 +16,7 @@ const routes = [
     component: HomePage,
   },
   {
-    path: "/hotels/detail/:roomid",
+    path: "/hotels/detail/:id",
     component: HotelDetailPage,
   },
   {

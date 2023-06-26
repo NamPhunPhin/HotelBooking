@@ -7,3 +7,7 @@ export const GetHotelsByCityId = (id) => {
 export const GetHotelsByCountryId = (id) => {
   return BaseUrl.get(`/api/Hotels/GetHotelsByCountryId/${id}`);
 };
+
+export const GetHotelDetails = (id) => {
+  return BaseUrl.get(`/api/Hotels/GetHotelDetails/${id}`);
+};

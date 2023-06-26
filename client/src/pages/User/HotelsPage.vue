@@ -526,6 +526,7 @@ export default {
     },
 
     SearchHotelsHandleClick(data) {
+      this.isArrange = 0;
       if (data.country != "") {
         this.HotelsCountryRequest(data.country);
         this.CitiesDataFilterRequest(data.country);

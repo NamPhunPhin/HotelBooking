@@ -1,14 +1,24 @@
 <template>
-  <div class="Hotel-Detail-Container">
+  <div class="Wrapper-PopUp" v-if="isPageLoading">
+    <div class="Focus-Layout-Loading">
+      <div class="Message-Searching">
+        <img src="/images/agoji-parachute.gif" alt="" />
+        <h5>VUI LÒNG ĐỢI MỘT VÀI GIÂY</h5>
+        <div>Chúng tôi sẽ luôn mang lại trải nghiệm tốt nhất cho bạn.</div>
+      </div>
+    </div>
+  </div>
+
+  <div v-show="!isPageLoading" class="Hotel-Detail-Container">
     <div :class="view.topOfPage && 'Search-Nav'">
-      <SearchNavbarComponent />
+      <SearchNavbarComponent :is-detail-page="true" />
     </div>
     <div class="Hotel-Detail-Wrapper container">
       <div class="Hotel-Detail-Header">
         <div class="Text-Hotel">
           <div class="Text-Left">
             <h4>
-              Khách sạn Eastin Grand Saigon (Eastin Grand Hotel Saigon)
+              {{ Hotel_Detail.name }}
               <span>
                 <i class="fa-solid fa-star text-warning"></i>
                 <i class="fa-solid fa-star text-warning"></i>
@@ -18,72 +28,141 @@
               </span>
             </h4>
             <div>
-              <i class="fa-solid fa-location-dot"></i> 253 Nguyễn Văn Trỗi, Phú
-              Nhuận, TP. Hồ Chí Minh, 70000, Việt Nam
+              <i class="fa-solid fa-location-dot"></i>
+              {{ Hotel_Detail.address }}
             </div>
             <div>
               <i class="fa-solid fa-hotel"></i>
-              Tọa lạc tại trung tâm Thành phố Hồ Chí Minh, Khách sạn Eastin
-              Grand Saigon cách Chùa Vĩnh Nghiêm và Bảo tàng Chứng tích Chiến
-              tranh 5 phút lái xe.
+              {{ Hotel_Detail.description }}
             </div>
           </div>
 
           <div class="Text-Right">
-            <div class="text-danger"><strike>6.900.000</strike> 7.900.000</div>
+            <div class="text-danger">
+              <strike v-if="Hotel_Detail.min_discount">{{
+                FormatCurrency(Hotel_Detail.min_price)
+              }}</strike>
+              {{
+                Hotel_Detail.min_discount != 0
+                  ? FormatCurrency(Hotel_Detail.min_price_discount)
+                  : FormatCurrency(Hotel_Detail.min_price)
+              }}
+            </div>
             <div>
-              <button>Chọn Phòng</button>
+              <button @click="scrollToRoom">Chọn Phòng</button>
             </div>
           </div>
         </div>
         <div class="Hotel-Detail-Image">
           <div>
-            <img src="/images/detail1.jpg" alt="" />
+            <img
+              :src="
+                Hotel_Detail.thumbnail
+                  ? IMAGE_PATH + Hotel_Detail.thumbnail
+                  : `/images/khachsan1.jpg`
+              "
+              alt=""
+            />
           </div>
           <div>
             <div class="Images-Hotel">
-              <img src="/images/detail2.jpg" alt="" />
-              <img src="/images/detail2.jpg" alt="" />
-              <img src="/images/detail2.jpg" alt="" />
+              <img
+                :src="
+                  Hotel_Detail != '' &&
+                  IMAGE_PATH + Hotel_Detail.images[0].image_name
+                "
+                alt=""
+              />
+              <img
+                :src="
+                  Hotel_Detail != '' &&
+                  IMAGE_PATH + Hotel_Detail.images[1].image_name
+                "
+                alt=""
+              />
+              <img
+                :src="
+                  Hotel_Detail != '' &&
+                  IMAGE_PATH + Hotel_Detail.images[2].image_name
+                "
+                alt=""
+              />
             </div>
             <div class="Images-Hotel">
-              <img src="/images/detail2.jpg" alt="" />
-              <img src="/images/detail2.jpg" alt="" />
-              <img src="/images/detail2.jpg" alt="" />
+              <img
+                :src="
+                  Hotel_Detail != '' &&
+                  IMAGE_PATH + Hotel_Detail.images[3].image_name
+                "
+                alt=""
+              />
+              <img
+                :src="
+                  Hotel_Detail != '' &&
+                  IMAGE_PATH + Hotel_Detail.images[4].image_name
+                "
+                alt=""
+              />
+              <img
+                :src="
+                  Hotel_Detail != '' &&
+                  IMAGE_PATH + Hotel_Detail.images[5].image_name
+                "
+                alt=""
+              />
             </div>
           </div>
         </div>
 
+        <div ref="myRoom"></div>
+
         <div class="Block-Detail-Header">
           <div>
-            <div class="Title">Đặc điểm nổi bật</div>
+            <div class="Title">Tiện nghi và dịch vụ</div>
             <div class="Location-Block">
-              <div>
-                <i class="fa-solid fa-city"></i> Cách trung tâm thành phố 3km
-              </div>
-              <div>
-                <i class="fa-solid fa-city"></i> Cách trung tâm thành phố 3km
-              </div>
-              <div>
-                <i class="fa-solid fa-city"></i> Cách trung tâm thành phố 3km
-              </div>
-              <div><i class="fa-solid fa-ban"></i> Huỷ đặt phòng miễn phí</div>
-              <div>
-                <i class="fa-solid fa-broom"></i> Yêu cầu thêm nhân viên vệ sinh
+              <div
+                class="Services-Area"
+                v-for="(ser, index) in ServicesData"
+                :key="index"
+                @mouseover="PopUpHandleMouseOver(ser.service_id)"
+                @mouseout="PopUpHandleMouseOut(ser.service_id)"
+              >
+                <span v-html="ser.icon"></span> {{ " " + ser.service_name }}
+                <div
+                  class="Service-Details-PopUp"
+                  :id="`Service_Details_${ser.service_id}`"
+                >
+                  <ul>
+                    <li
+                      ref=""
+                      v-for="(det, index) in ServiceDetailsData"
+                      :key="index"
+                      v-show="ser.service_id == det.service_id"
+                    >
+                      <div>
+                        <span v-html="det.icon"></span>
+                        {{ " " + det.service_detail_name }}
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
 
           <div>
-            <div class="Title">Tiện nghi và dịch vụ</div>
+            <div class="Title">Đặc điêm</div>
 
-            <div class="Service-Block">
+            <div class="Service-Second">
               <div>
-                <i class="fa-solid fa-city"></i> Cách trung tâm thành phố 3km
-              </div>
-              <div><i class="fa-solid fa-ban"></i> Huỷ đặt phòng miễn phí</div>
-              <div>
-                <i class="fa-solid fa-broom"></i> Yêu cầu thêm nhân viên vệ sinh
+                <i class="fa-solid fa-city"></i>
+
+                {{
+                  Hotel_Detail.distance_citycenter != 0
+                    ? `Cách trung tâm thành phố
+                ${Hotel_Detail.distance_citycenter}km`
+                    : `Bên trong trung tâm thành phố `
+                }}
               </div>
             </div>
           </div>
@@ -157,9 +236,37 @@
         </div>
       </div>
 
-      <div class="Room-Hotel mt-3 mb-3">
-        <h4>Premium Deluxe Room Non smoking</h4>
-        <RoomListComponent />
+      <div class="Loading" v-if="isRoomLoading == false">
+        <div class="spinner-grow text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-danger" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-info" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div
+        class="Room-Hotel mt-3 mb-3"
+        v-for="(item, index) in Room_Data"
+        :key="index"
+      >
+        <h4>{{ item.name }}</h4>
+        <RoomListComponent :room-data="item" />
       </div>
 
       <div class="Room-Hotel mt-3 mb-3">
@@ -307,6 +414,13 @@
 </template>
 
 <script>
+import {
+  GetServiceByHotelId,
+  GetServiceDetailsByHotelId,
+} from "@/API/ServicesRequest";
+import { GetHotelDetails } from "@/API/HotelRequest";
+import { GetRoomByHotelId } from "@/API/RoomsRequest";
+import { FormatCurrency } from "@/service/FormatService";
 import RecommendRoomComponent from "../../components/RecommendRoomComponent.vue";
 import RoomListComponent from "../../components/RoomListComponent.vue";
 import SearchNavbarComponent from "../../components/SearchNavbarComponent.vue";
@@ -320,13 +434,68 @@ export default {
 
   data() {
     return {
+      isPageLoading: true,
+      ServicesData: "",
+      ServiceDetailsData: "",
+      Hotel_Detail: "",
+      Room_Data: "",
+      IMAGE_PATH: process.env.VUE_APP_IMAGE_PATH,
+      isRoomLoading: false,
       view: {
         topOfPage: false,
       },
     };
   },
 
+  async created() {
+    const Hotel_Detail_Request = await GetHotelDetails(this.$route.params.id);
+    this.Hotel_Detail = Hotel_Detail_Request.data;
+    this.Hotel_Detail.images.sort((a, b) => b.image_id - a.image_id);
+
+    const ServicesRequest = await GetServiceByHotelId(this.$route.params.id);
+    this.ServicesData = ServicesRequest.data;
+
+    const ServiceDetailsRequest = await GetServiceDetailsByHotelId(
+      this.$route.params.id
+    );
+    this.ServiceDetailsData = ServiceDetailsRequest.data;
+
+    if (
+      ServiceDetailsRequest.data &&
+      ServicesRequest.data &&
+      Hotel_Detail_Request.data
+    ) {
+      this.isPageLoading = false;
+    }
+
+    const Room_Request = await GetRoomByHotelId(this.$route.params.id);
+    if (Room_Request.data) {
+      this.isRoomLoading = true;
+      this.Room_Data = Room_Request.data;
+    }
+  },
+
   methods: {
+    PopUpHandleMouseOver(id) {
+      const popUp = document.getElementById(`Service_Details_${id}`);
+      popUp.style.display = "block";
+    },
+
+    PopUpHandleMouseOut(id) {
+      const popUp = document.getElementById(`Service_Details_${id}`);
+      popUp.style.display = "none";
+    },
+
+    FormatCurrency(number) {
+      return FormatCurrency(number);
+    },
+
+    scrollToRoom() {
+      this.$refs.myRoom.scrollIntoView({
+        behavior: "smooth",
+      });
+    },
+
     NavSearchHandleScroll() {
       document.documentElement.scrollTop > 100
         ? (this.view.topOfPage = true)
@@ -347,6 +516,10 @@ export default {
   gap: 1rem;
 }
 
+.Wrapper-PopUp {
+  min-height: 500px;
+}
+
 .Hotel-Detail-Header {
   display: flex;
   justify-content: space-between;
@@ -358,6 +531,7 @@ export default {
 
 .Text-Hotel {
   display: flex;
+  gap: 1rem;
 }
 
 .Text-Left {
@@ -385,7 +559,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  justify-content: start;
+  justify-content: space-around;
 }
 
 .Text-Right > div > strike {
@@ -435,6 +609,7 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .Hotel-Detail-Image > div:nth-of-type(2) {
@@ -529,6 +704,15 @@ export default {
   gap: 1rem;
   align-items: center;
   font-size: 13px;
+  font-weight: 500;
+}
+
+.Service-Second {
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 1rem;
+  align-items: center;
+  font-size: 15px;
   font-weight: 500;
 }
 
@@ -659,5 +843,96 @@ export default {
 
 .Comment {
   margin-top: 80px;
+}
+
+.Loading {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  margin: 150px 0;
+}
+
+.Services-Area {
+  position: relative;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.Services-Area:hover {
+  color: var(--main-Color);
+}
+
+.Service-Details-PopUp {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  overflow-y: auto;
+  max-height: 300px;
+  position: absolute;
+  padding: 10px;
+  left: 80%;
+  top: 0;
+  background: white;
+  border-radius: 10px;
+  display: none;
+  justify-content: center;
+  flex-direction: row;
+  z-index: 99999;
+  width: 100%;
+  font-size: 15px;
+}
+
+.Service-Details-PopUp::-webkit-scrollbar {
+  display: none;
+}
+
+.Service-Details-PopUp > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.Service-Details-PopUp > ul > li {
+  margin: 10px 0;
+}
+
+.Focus-Layout-Loading {
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Message-Searching {
+  background: white;
+  padding: 30px;
+  z-index: 99999;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  opacity: unset;
+  flex-direction: column;
+}
+
+.Message-Searching > h5 {
+  font-family: unset;
+  color: var(--main-Color);
+}
+
+.Message-Searching > div {
+  font-weight: 600;
+  text-align: center;
+}
+
+.Message-Searching > img {
+  margin: 10px 0;
 }
 </style>
