@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\HotelBooking\\server\\server.csproj": {}
+    "D:\\Project Space\\HotelBookingProject\\server\\server.csproj": {}
   },
   "projects": {
-    "D:\\HotelBooking\\server\\server.csproj": {
+    "D:\\Project Space\\HotelBookingProject\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\HotelBooking\\server\\server.csproj",
+        "projectUniqueName": "D:\\Project Space\\HotelBookingProject\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "D:\\HotelBooking\\server\\server.csproj",
-        "packagesPath": "C:\\Users\\shaga\\.nuget\\packages\\",
-        "outputPath": "D:\\HotelBooking\\server\\obj\\",
+        "projectPath": "D:\\Project Space\\HotelBookingProject\\server\\server.csproj",
+        "packagesPath": "C:\\Users\\quoct\\.nuget\\packages\\",
+        "outputPath": "D:\\Project Space\\HotelBookingProject\\server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\shaga\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\quoct\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -54,6 +55,10 @@
               "target": "Package",
               "version": "[7.0.5, )"
             },
+            "Microsoft.NET.Sdk.Razor": {
+              "target": "Package",
+              "version": "[3.1.32, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
@@ -82,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

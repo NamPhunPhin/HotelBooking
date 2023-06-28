@@ -2,7 +2,7 @@
   <div class="Partner-Wrapper">
     <div class="Title">Trở thành đối tác</div>
     <div class="Merchant-Form">
-      <div class="Process-Partner">
+      <div class="Process-Partner" v-if="isProcessNumber != 3">
         <div class="Partner-Info-Register">
           <i class="fa-solid fa-user-tie"></i>
         </div>
@@ -143,6 +143,14 @@
         </div>
       </div>
 
+      <div class="Success-Merchant" v-if="isProcessNumber == 3">
+        <img src="/images/success.gif" alt="" />
+        <div>
+          Đã gửi yêu cầu thành công, bạn hãy đợi chúng tôi duyệt yêu cầu cho bạn
+          !
+        </div>
+      </div>
+
       <div class="Button-Merchant">
         <button
           @click="PreviousHandleClick()"
@@ -169,7 +177,7 @@ export default {
   name: "PartnerComponent",
   data() {
     return {
-      isProcessNumber: 1,
+      isProcessNumber: 3,
       MerchantData: {
         merchantName: "",
         merchantEmail: "",
@@ -300,7 +308,7 @@ export default {
 
 .Partner-Info-Register {
   width: 10%;
-  background: green;
+  background: #77b43f;
   padding: 10px;
   border-radius: 5px;
   position: relative;
@@ -312,14 +320,14 @@ export default {
 
 .Partner-Success {
   width: 10%;
-  background: green;
+  background: #77b43f;
   padding: 10px;
   border-radius: 5px;
 }
 
 .Partner-Info-Hotel {
   width: 10%;
-  background: green;
+  background: #77b43f;
   padding: 10px;
   border-radius: 5px;
 }
@@ -342,7 +350,7 @@ export default {
 .Process-Line {
   width: 35%;
   height: 5px;
-  background: green;
+  background: #77b43f;
 }
 
 .Process-None {
@@ -371,5 +379,29 @@ export default {
 
 .Group-Merchant > .Input-Merchant > .Input-Field > select:focus {
   outline: none;
+}
+
+.Success-Merchant {
+  align-self: center;
+  margin: 30px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.Success-Merchant > div {
+  font-size: 20px;
+  color: #77b43f;
+  font-weight: bold;
+  text-align: center;
+}
+
+.Success-Merchant > img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
 }
 </style>

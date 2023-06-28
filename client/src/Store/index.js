@@ -3,6 +3,7 @@ import AuthModule from "./AuthModule/index";
 import HomeModule from "./HomeModule/index";
 import SearchModule from "./SearchModule/index";
 import HotelsModule from "./HotelsModule/index";
+import CartModule from "./CartModule/index";
 
 const store = createStore({
   modules: {
@@ -10,6 +11,7 @@ const store = createStore({
     Home: HomeModule,
     Search: SearchModule,
     Hotels: HotelsModule,
+    Cart: CartModule,
   },
 });
 

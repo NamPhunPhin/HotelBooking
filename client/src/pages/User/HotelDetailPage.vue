@@ -266,7 +266,7 @@
         :key="index"
       >
         <h4>{{ item.name }}</h4>
-        <RoomListComponent :room-data="item" />
+        <RoomListComponent :room-data="item" :hotel-data="Hotel_Detail" />
       </div>
 
       <div class="Room-Hotel mt-3 mb-3">
@@ -424,6 +424,7 @@ import { FormatCurrency } from "@/service/FormatService";
 import RecommendRoomComponent from "../../components/RecommendRoomComponent.vue";
 import RoomListComponent from "../../components/RoomListComponent.vue";
 import SearchNavbarComponent from "../../components/SearchNavbarComponent.vue";
+
 export default {
   name: "HotelDetailPage",
   components: {

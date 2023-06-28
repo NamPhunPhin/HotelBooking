@@ -117,20 +117,29 @@
                 >
               </div>
               <button>Đặt Ngay</button>
-              <button>Thêm Vào Đẩy Hàng</button>
+              <button @click="AddToCartHandleClick(item)">
+                Thêm Vào Đẩy Hàng
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <vue-basic-alert :duration="300" :closeIn="3000" ref="alert" />
 </template>
 
 <script>
 import { FormatCurrency } from "@/service/FormatService";
+import { mapGetters, mapMutations } from "vuex";
+import VueBasicAlert from "vue-basic-alert";
+
 export default {
   name: "RoomListComponent",
-  props: ["roomData"],
+  components: {
+    VueBasicAlert,
+  },
+  props: ["roomData", "hotelData"],
   data() {
     return {
       IMAGE_PATH: process.env.VUE_APP_IMAGE_PATH,
@@ -138,6 +147,40 @@ export default {
   },
 
   methods: {
+    ...mapMutations("Cart", ["ADD_ROOM_TO_CART"]),
+
+    AlertShow(type, hearder, message) {
+      this.$refs.alert.showAlert(
+        type, // There are 4 types of alert: success, info, warning, error
+
+        message, // Message of the alert
+        hearder // Header of the alert
+      );
+    },
+
+    AddToCartHandleClick(room) {
+      let RoomData = {
+        Room_Type: this.roomData,
+        Hotel: this.hotelData,
+        Room: room,
+        Info: {
+          checkin: this.getSearching.CheckIn,
+          checkout: this.getSearching.CheckOut,
+          room_number: this.getSearching.Rooms,
+          adult: this.getSearching.AdultPeople,
+          children: this.getSearching.ChildrenPeople,
+        },
+      };
+
+      this.ADD_ROOM_TO_CART(RoomData);
+
+      this.AlertShow(
+        "success",
+        "Thành Công",
+        "Đã thêm vào giỏ hàng thành công."
+      );
+    },
+
     FormatCurrency(number) {
       return FormatCurrency(number);
     },
@@ -154,6 +197,9 @@ export default {
   },
 
   computed: {
+    ...mapGetters("Search", ["getSearching"]),
+    ...mapGetters("Cart", ["getCart"]),
+
     AmenitiesShow() {
       return this.roomData.amenities.filter(
         (amenities) => amenities.show == true
