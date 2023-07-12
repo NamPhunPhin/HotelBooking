@@ -7,6 +7,7 @@ import HotelDetailPage from "@/pages/User/HotelDetailPage.vue";
 import HotelsPage from "@/pages/User/HotelsPage.vue";
 import IntroPage from "@/pages/User/IntroPage.vue";
 import CartPage from "@/pages/User/CartPage.vue";
+import PaymentPage from "@/pages/User/PaymentPage.vue";
 import AccountPage from "@/pages/User/AccountPage.vue";
 import { GetLocalStorage } from "../service/AccountService";
 
@@ -68,7 +69,7 @@ const routes = [
   },
   {
     path: "/payment",
-    component: CartPage,
+    component: PaymentPage,
   },
 ];
 

@@ -68,23 +68,23 @@ export default {
       default: () => {
         return [
           {
-            text: "Poor",
+            text: "Không hài lòng",
             class: "star-poor",
           },
           {
-            text: "Below Average",
+            text: "Hài lòng",
             class: "star-belowAverage",
           },
           {
-            text: "Average",
+            text: "Rất tốt",
             class: "star-average",
           },
           {
-            text: "Good",
+            text: "Tuyệt vời",
             class: "star-good",
           },
           {
-            text: "Excellent",
+            text: "Trên cả tuyệt vời",
             class: "star-excellent",
           },
         ];
@@ -150,7 +150,7 @@ $no-star-desc-color: rgb(00, 00, 00);
 .rating {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-ul.list>li,
+ul.list > li,
 span {
   display: inline-block;
   margin: 2px;

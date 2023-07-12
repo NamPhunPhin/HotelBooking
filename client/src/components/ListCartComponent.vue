@@ -60,23 +60,11 @@
                 </div>
               </div>
             </div>
-            <div
-              :class="'bg-' + index + ' card-footer'"
-              v-on:click="checkAcpt(index)"
-            >
+            <div :class="'bg-' + index + ' card-footer'">
               <div class="row room-price">
                 <div class="col-md room-checkin-checkout">
                   <!-- room name -->
-                  <div class="form-check" v-on:click="REcheckAcpt(index)">
-                    <input
-                      :class="
-                        'check-' + index + ' form-check-input' + ' room-check'
-                      "
-                      type="checkbox"
-                      v-model="item.action"
-                      value=""
-                      :id="'flexCheckDefault-' + index"
-                    />
+                  <div class="form-check">
                     <label
                       class="form-check-label room-name"
                       :for="'flexCheckDefault-' + index"
@@ -84,7 +72,10 @@
                       {{ item.Info.room_number }} x {{ item.Room_Type.name }}
                     </label>
                   </div>
-                  <p class="daycheck"></p>
+                  <p class="daycheck">
+                    {{ DateFormat(item.Info.checkin) }} -
+                    {{ DateFormat(item.Info.checkout) }}
+                  </p>
                 </div>
                 <!-- item price -->
                 <div class="col-md text-end">
@@ -114,11 +105,15 @@
           <div class="col-6 text-sm-start">
             <div class="total-price">Tổng tiền tạm thời</div>
             <div class="item-qty">
-              {{ Qtychekitem() }}, including taxes & fees
+              {{ getCart.length }}, including taxes & fees
             </div>
           </div>
           <div class="col-6 text-end">{{ formatCurrency(getTotal) }}</div>
-          <button class="btn-action btn btn-danger w-100 mt-3">Next</button>
+          <router-link to="/payment" v-show="getCart.length >= 1"
+            ><button class="btn-action btn btn-danger w-100 mt-3">
+              Next
+            </button></router-link
+          >
         </div>
       </div>
     </div>
@@ -140,23 +135,23 @@ export default {
       CartData: CartData,
       desc: [
         {
-          text: "Poor",
+          text: "Không hài lòng",
           class: "star-poor",
         },
         {
-          text: "Below Average",
+          text: "Hài lòng",
           class: "star-belowAverage",
         },
         {
-          text: "Average",
+          text: "Rất tốt",
           class: "star-average",
         },
         {
-          text: "Good",
+          text: "Tuyệt vời",
           class: "star-good",
         },
         {
-          text: "Excellent",
+          text: "Trên cả tuyệt vời",
           class: "star-excellent",
         },
       ],
@@ -174,6 +169,13 @@ export default {
         message, // Message of the alert
         hearder // Header of the alert
       );
+    },
+
+    DateFormat(DateInput) {
+      var date = new Date(DateInput);
+      return `${date.getDate()} tháng ${
+        date.getMonth() + 1
+      } ${date.getFullYear()}`;
     },
 
     DeleteRoomHandleClick(index) {
