@@ -7,7 +7,7 @@ namespace server.Data
         [Key]
         public int room_type_id { get; set; }
 
-        public string name { get; set; }
+        public string? name { get; set; }
 
         public double room_area { get; set; }
 

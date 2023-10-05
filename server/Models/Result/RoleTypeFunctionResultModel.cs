@@ -7,7 +7,7 @@ namespace server.Models.Result
     {
         [Key]
         public int role_details_id { get; set; }
-        public RoleTypes RoleTypes { get; set; }
-        public List<RoleFunctions> RoleFunctions { get; set; }
+        public RoleTypes? RoleTypes { get; set; }
+        public List<RoleFunctions>? RoleFunctions { get; set; }
     }
 }

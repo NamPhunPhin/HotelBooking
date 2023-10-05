@@ -4,16 +4,27 @@ export default {
       isloading: true,
       isLogined: false,
       isError: false,
+      isAdmin: false,
     };
     state.user = null;
   },
 
   AUTH_SUCCESS(state, data) {
-    state.status = {
-      isloading: false,
-      isLogined: true,
-      isError: false,
-    };
+    if (data.data.role_type_id == 8) {
+      state.status = {
+        isloading: false,
+        isLogined: true,
+        isError: false,
+        isAdmin: true,
+      };
+    } else {
+      state.status = {
+        isloading: false,
+        isLogined: true,
+        isError: false,
+        isAdmin: false,
+      };
+    }
     state.response = { result: data.result, message: data.message };
     state.user = data.data;
   },
@@ -23,6 +34,7 @@ export default {
       isloading: false,
       isLogined: false,
       isError: true,
+      isAdmin: false,
     };
     state.user = null;
     state.errorMessage = error;
@@ -33,6 +45,7 @@ export default {
       isloading: false,
       isLogined: false,
       isError: false,
+      isAdmin: false,
     };
     state.user = null;
     state.response = { result: true, message: "" };

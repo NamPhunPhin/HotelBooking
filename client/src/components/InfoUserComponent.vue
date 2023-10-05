@@ -49,9 +49,17 @@
           <div class="col-md-11">
             <div class="card-body p-3">
               <p class="card-title text-primary m-0">
-                Xin chào {{ getUser != null ? getUser.last_name + " " + getUser.first_name : '' }}!
-                (không phải là
-                {{ getUser != null ? getUser.last_name + " " + getUser.first_name : '' }}? Thoát)
+                Xin chào
+                {{
+                  getUser != null
+                    ? getUser.last_name + " " + getUser.first_name
+                    : ""
+                }}! (không phải là
+                {{
+                  getUser != null
+                    ? getUser.last_name + " " + getUser.first_name
+                    : ""
+                }}? Thoát)
               </p>
             </div>
           </div>
@@ -91,7 +99,12 @@
               <label for="phone" class="form-label"
                 >Số điện thoại (không bắt buộc)</label
               >
-              <input type="text" class="form-control" id="phone" />
+              <input
+                type="text"
+                class="form-control"
+                id="phone"
+                v-model="phone"
+              />
             </div>
             <div class="mb-3 col-6">
               <label for="address" class="form-label"
@@ -122,10 +135,10 @@
             <div class="card-body">
               <h5 class="card-title mb-3">Thông tin khách hàng</h5>
               <div class="mb-3">
-                <label for="name" class="form-label"
+                <label for="name_cus" class="form-label"
                   >Họ và tên như trong hộ chiếu</label
                 >
-                <input type="text" class="form-control" id="name" />
+                <input type="text" class="form-control" id="name_cus" />
               </div>
               <div class="mb-3">
                 <label for="address" class="form-label">Địa chỉ</label>
@@ -392,7 +405,6 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="payment"
                   id="Credit"
                   v-model="credit"
                   value="1"
@@ -498,7 +510,6 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="payment"
                   id="Credit"
                   v-model="credit"
                   value="2"
@@ -549,7 +560,6 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="payment"
                   id="Credit"
                   v-model="credit"
                   value="3"
@@ -597,7 +607,6 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="payment"
                   id="Credit"
                   v-model="credit"
                   value="4"
@@ -658,7 +667,7 @@
           <button
             class="btn shadow checknext mt-1"
             type="button"
-            v-on:click="NextHandleClick()"
+            @click="AddToOrderHandleClick()"
           >
             <i class="fa-solid fa-lock"></i> ĐẶT PHÒNG
           </button>
@@ -666,7 +675,8 @@
         <div class="card-footer shadow" v-show="getUser != null">
           <p class="m-0 p-2">
             <i class="fa-solid fa-envelope-circle-check"></i> Chúng tôi sẽ gởi
-            xác nhận đặt phòng của bạn đến <b>{{getUser!=null ? getUser.email : ''}}</b>
+            xác nhận đặt phòng của bạn đến
+            <b>{{ getUser != null ? getUser.email : "" }}</b>
           </p>
         </div>
       </div>
@@ -679,10 +689,21 @@
         Quay lại trang thông tin người dùng
       </button>
     </div>
+
+    <div class="Success-Merchant" v-if="isProcessNumber == 3">
+      <img src="/images/success.gif" alt="" />
+      <div>Đã hoàn tất thủ tục, bạn hãy đợi chúng tôi xác nhận !</div>
+      <router-link to="/"
+        ><button class="btn-action btn btn-danger w-100 mt-3">
+          Trở về trang chủ
+        </button></router-link
+      >
+    </div>
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import { RemoveLocalStorageItem } from "@/service/AccountService";
 
 export default {
   name: "InfoUserComponent",
@@ -692,10 +713,13 @@ export default {
       isProcessNumber: 1,
       Addoption: false,
       placeforother: false,
+      phone: "",
     };
   },
 
   methods: {
+    ...mapActions("Orders", ["AddOrderAction", "AddOrderDetailsAction"]),
+
     AddRemov() {
       this.Addoption = !this.Addoption;
     },
@@ -708,10 +732,55 @@ export default {
     SendHandleClick() {
       console.log(this.MerchantData);
     },
+    AddToOrderHandleClick() {
+      var cost_order = this.getTotal;
+      var order = {
+        fullname: this.getUser.last_name + " " + this.getUser.first_name,
+        contact_number: this.phone,
+        email: this.getUser.email,
+        address: this.getUser.address,
+        total_cost: cost_order,
+        hotel_id: null,
+        user_id: this.getUser.user_id,
+        status_order: 1,
+        status_payment: 1,
+      };
+
+      this.AddOrderAction(order).then(() => {
+        var id_order = this.getOrder.order_id;
+        var Cartlist = this.getCart;
+        console.log(Cartlist);
+        console.log(id_order);
+
+        for (let i = 0; i < Cartlist.length; i++) {
+          let orderdetail = {
+            room_id: Cartlist[i].Room.room_id,
+            order_id: id_order,
+            check_in: Cartlist[i].Info.checkin,
+            check_out: Cartlist[i].Info.checkout,
+            price: Cartlist[i].Room.price,
+            Children: Cartlist[i].Info.children,
+            adults: Cartlist[i].Info.adult,
+            room_quatity: Cartlist[i].Info.room_number,
+            status_room: 1,
+          };
+
+          console.log(orderdetail);
+
+          this.AddOrderDetailsAction(orderdetail);
+        }
+
+        RemoveLocalStorageItem("Cart");
+      });
+
+      this.isProcessNumber = this.isProcessNumber + 1;
+    },
   },
 
   computed: {
     ...mapGetters("Auth", ["getUser", "getAuthStatus"]),
+    ...mapGetters("Cart", ["getCart", "getTotal"]),
+    ...mapGetters("Orders", ["getOrder"]),
   },
 };
 </script>
@@ -834,5 +903,16 @@ textarea {
   text-align: center;
   background: #fff7f7d3;
   color: #fff7f700;
+}
+
+.Success-Merchant {
+  align-self: center;
+  margin: 30px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 </style>

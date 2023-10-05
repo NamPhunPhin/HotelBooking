@@ -24,10 +24,10 @@ namespace server.Data
         public string? avatar { get; set; }
 
         [Required]
-        public string email { get; set; }
+        public string? email { get; set; }
 
         [Required]
-        public string password { get; set; }
+        public string? password { get; set; }
 
         public decimal? coin { get; set; } = 0;
 

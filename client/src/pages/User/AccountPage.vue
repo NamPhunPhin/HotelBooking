@@ -4,35 +4,35 @@
       <ul>
         <li
           :class="isSiteBarNumber == 0 && 'Active-Bar'"
-          @click="SiteBarHandleClick(0)"
+          @click="SiteBarHandleClick(getUser.user_id,0)"
         >
           <i class="fa-solid fa-calendar-days"></i>
           <div>Đơn đặt chổ của tôi</div>
         </li>
         <li
           :class="isSiteBarNumber == 1 && 'Active-Bar'"
-          @click="SiteBarHandleClick(1)"
+          @click="SiteBarHandleClick(getUser.user_id,1)"
         >
           <i class="fa-solid fa-message"></i>
           <div>Tin nhắn từ khách sạn</div>
         </li>
         <li
           :class="isSiteBarNumber == 2 && 'Active-Bar'"
-          @click="SiteBarHandleClick(2)"
+          @click="SiteBarHandleClick(getUser.user_id,2)"
         >
           <i class="fa-solid fa-star"></i>
           <div>Nhận xét</div>
         </li>
         <li
           :class="isSiteBarNumber == 3 && 'Active-Bar'"
-          @click="SiteBarHandleClick(3)"
+          @click="SiteBarHandleClick(getUser.user_id,3)"
         >
           <i class="fa-solid fa-user"></i>
           <div>Hồ sơ</div>
         </li>
         <li
           :class="isSiteBarNumber == 4 && 'Active-Bar'"
-          @click="SiteBarHandleClick(4)"
+          @click="SiteBarHandleClick(getUser.user_id,4)"
         >
           <i class="fa-solid fa-handshake"></i>
           <div>Trở thành đối tác</div>
@@ -40,6 +40,10 @@
       </ul>
     </div>
     <div class="Account-Content">
+      <OrderListComponent
+        v-if="getAuthStatus.isLogined && isSiteBarNumber == 0"
+      />
+      
       <ProfileComponent
         v-if="getAuthStatus.isLogined && isSiteBarNumber == 3"
       />
@@ -47,6 +51,7 @@
       <PartnerComponent
         v-if="getAuthStatus.isLogined && isSiteBarNumber == 4"
       />
+
     </div>
   </div>
 </template>
@@ -54,11 +59,13 @@
 <script>
 import ProfileComponent from "../../components/ProfileComponent.vue";
 import PartnerComponent from "../../components/PartnerComponent.vue";
+import OrderListComponent from "@/components/OrderListComponent.vue";
 import { mapGetters } from "vuex";
 export default {
   components: {
     ProfileComponent,
     PartnerComponent,
+    OrderListComponent,
   },
   data() {
     return {
@@ -67,23 +74,24 @@ export default {
   },
 
   created() {
-    if (this.$route.params.id) {
-      this.isSiteBarNumber = this.$route.params.id;
+    if (this.$route.params.number) {
+      this.isSiteBarNumber = this.$route.params.number;
     }
   },
 
   beforeUpdate() {
-    this.isSiteBarNumber = this.$route.params.id;
+    this.isSiteBarNumber = this.$route.params.number;
   },
 
   computed: {
-    ...mapGetters("Auth", ["getAuthStatus"]),
+    ...mapGetters("Auth", ["getUser","getAuthStatus"]),
   },
 
   methods: {
-    SiteBarHandleClick(number) {
+    SiteBarHandleClick(id,number) {
       this.isSiteBarNumber = number;
-      this.$route.params.id = this.isSiteBarNumber;
+      this.$route.params.number = this.isSiteBarNumber;
+      this.$router.push(`/account/${id}/${number}`);
     },
   },
 };

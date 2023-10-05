@@ -6,7 +6,7 @@ namespace server.Models.Result
     {
         public bool Result { get; set; }
 
-        public List<RoleFunctionsModel> RoleFunctionsData { get; set; }
+        public List<RoleFunctionsModel>? RoleFunctionsData { get; set; }
 
         public string? Message { get; set; }
     }

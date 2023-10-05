@@ -6,7 +6,7 @@ namespace server.Models
     {
         public int room_type_id { get; set; }
 
-        public string name { get; set; }
+        public string? name { get; set; }
 
         public double room_area { get; set; }
 
@@ -14,9 +14,9 @@ namespace server.Models
 
         public Boolean smoking_allowed { get; set; }
 
-        public List<Rooms> Rooms { get; set; }
+        public List<Rooms>? Rooms { get; set; }
 
-        public List<AmenitiesModel> Amenities { get; set; }
+        public List<AmenitiesModel>? Amenities { get; set; }
 
         public DateTime? CreatedAt { get; set; } = DateTime.Now;
 

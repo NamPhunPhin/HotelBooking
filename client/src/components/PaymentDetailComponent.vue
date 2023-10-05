@@ -11,7 +11,6 @@
       >
         <i class="fa-solid fa-hotel"></i>
         <h5 class="d-inline-block m-0">KHÁCH SẠN</h5>
-        <span class="d-inline-block">(HỒ CHÍ MINH)</span>
         <div class="row mt-4">
           <div class="col-4">
             <img

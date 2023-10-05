@@ -30,6 +30,10 @@ export const UpdateUserLocalStorage = (data) => {
   SetLocalStorage("user", userUpdateData);
 };
 
+export const RemoveLocalStorageItem = (data) => {
+  localStorage.removeItem(data);
+};
+
 export const ClearLocalStorage = () => {
   localStorage.clear();
 };

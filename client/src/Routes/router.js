@@ -9,6 +9,7 @@ import IntroPage from "@/pages/User/IntroPage.vue";
 import CartPage from "@/pages/User/CartPage.vue";
 import PaymentPage from "@/pages/User/PaymentPage.vue";
 import AccountPage from "@/pages/User/AccountPage.vue";
+import DashboardPage from "@/pages/Admin/DashboardPage.vue";
 import { GetLocalStorage } from "../service/AccountService";
 
 const routes = [
@@ -49,7 +50,7 @@ const routes = [
     },
   },
   {
-    path: "/account/:id",
+    path: "/account/:id/:number",
     component: AccountPage,
     meta: {
       requiresAuth: true,
@@ -70,6 +71,10 @@ const routes = [
   {
     path: "/payment",
     component: PaymentPage,
+  },
+  {
+    path: "/admin",
+    component: DashboardPage,
   },
 ];
 

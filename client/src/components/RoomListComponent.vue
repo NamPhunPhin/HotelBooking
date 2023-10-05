@@ -116,7 +116,11 @@
                   >Hiện tại, chỉ còn lại {{ item.quatity }} phòng trống !</span
                 >
               </div>
-              <button>Đặt Ngay</button>
+              <router-link to="/payment"
+                ><button class="buy-now" @click="BuyNowHandleClick(item)">
+                  Đặt Ngay
+                </button></router-link
+              >
               <button @click="AddToCartHandleClick(item)">
                 Thêm Vào Đẩy Hàng
               </button>
@@ -179,6 +183,23 @@ export default {
         "Thành Công",
         "Đã thêm vào giỏ hàng thành công."
       );
+    },
+
+    BuyNowHandleClick(room) {
+      let RoomData = {
+        Room_Type: this.roomData,
+        Hotel: this.hotelData,
+        Room: room,
+        Info: {
+          checkin: this.getSearching.CheckIn,
+          checkout: this.getSearching.CheckOut,
+          room_number: this.getSearching.Rooms,
+          adult: this.getSearching.AdultPeople,
+          children: this.getSearching.ChildrenPeople,
+        },
+      };
+
+      this.ADD_ROOM_TO_CART(RoomData);
     },
 
     FormatCurrency(number) {
@@ -350,6 +371,17 @@ export default {
   width: 100%;
   font-weight: bold;
   background: lightseagreen;
+  padding: 10px;
+  color: white;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.buy-now {
+  border: none;
+  width: 100%;
+  font-weight: bold;
+  background: var(--main-Color);
   padding: 10px;
   color: white;
   margin-top: 10px;

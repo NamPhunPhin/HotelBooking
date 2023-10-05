@@ -81,7 +81,6 @@ D:\Project Space\HotelBookingProject\server\bin\Debug\net6.0\BCrypt.Net.dll
 D:\Project Space\HotelBookingProject\server\bin\Debug\net6.0\Newtonsoft.Json.dll
 D:\HotelBooking\server\bin\Debug\net6.0\appsettings.Development.json
 D:\HotelBooking\server\bin\Debug\net6.0\appsettings.json
-D:\HotelBooking\server\bin\Debug\net6.0\server.staticwebassets.runtime.json
 D:\HotelBooking\server\bin\Debug\net6.0\server.exe
 D:\HotelBooking\server\bin\Debug\net6.0\server.deps.json
 D:\HotelBooking\server\bin\Debug\net6.0\server.runtimeconfig.json
@@ -155,14 +154,6 @@ D:\HotelBooking\server\obj\Debug\net6.0\server.AssemblyInfo.cs
 D:\HotelBooking\server\obj\Debug\net6.0\server.csproj.CoreCompileInputs.cache
 D:\HotelBooking\server\obj\Debug\net6.0\server.MvcApplicationPartsAssemblyInfo.cs
 D:\HotelBooking\server\obj\Debug\net6.0\server.MvcApplicationPartsAssemblyInfo.cache
-D:\HotelBooking\server\obj\Debug\net6.0\staticwebassets\msbuild.server.Microsoft.AspNetCore.StaticWebAssets.props
-D:\HotelBooking\server\obj\Debug\net6.0\staticwebassets\msbuild.build.server.props
-D:\HotelBooking\server\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.server.props
-D:\HotelBooking\server\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.server.props
-D:\HotelBooking\server\obj\Debug\net6.0\staticwebassets.pack.json
-D:\HotelBooking\server\obj\Debug\net6.0\staticwebassets.build.json
-D:\HotelBooking\server\obj\Debug\net6.0\staticwebassets.development.json
-D:\HotelBooking\server\obj\Debug\net6.0\scopedcss\bundle\server.styles.css
 D:\HotelBooking\server\obj\Debug\net6.0\server.csproj.CopyComplete
 D:\HotelBooking\server\obj\Debug\net6.0\server.dll
 D:\HotelBooking\server\obj\Debug\net6.0\refint\server.dll
@@ -172,3 +163,6 @@ D:\HotelBooking\server\obj\Debug\net6.0\ref\server.dll
 D:\Project Space\HotelBookingProject\server\obj\Debug\net6.0\server.RazorTargetAssemblyInfo.cache
 D:\Project Space\HotelBookingProject\server\obj\Debug\net6.0\staticwebassets\server.StaticWebAssets.Manifest.cache
 D:\Project Space\HotelBookingProject\server\obj\Debug\net6.0\staticwebassets\server.StaticWebAssets.xml
+D:\HotelBooking\server\obj\Debug\net6.0\server.RazorTargetAssemblyInfo.cache
+D:\HotelBooking\server\obj\Debug\net6.0\staticwebassets\server.StaticWebAssets.Manifest.cache
+D:\HotelBooking\server\obj\Debug\net6.0\staticwebassets\server.StaticWebAssets.xml

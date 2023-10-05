@@ -52,13 +52,13 @@
                 border-start-start-radius: 10px;
                 border-start-end-radius: 10px;
               "
-              @click="AccountListHandleClick(0)"
+              @click="AccountListHandleClick(getUser.user_id,0)"
             >
               Đặt hàng của tôi
             </li>
-            <li @click="AccountListHandleClick(1)">Tin nhắn</li>
-            <li @click="AccountListHandleClick(2)">Nhận xét</li>
-            <li @click="AccountListHandleClick(3)">Hồ sơ</li>
+            <li @click="AccountListHandleClick(getUser.user_id,1)">Tin nhắn</li>
+            <li @click="AccountListHandleClick(getUser.user_id,2)">Nhận xét</li>
+            <li @click="AccountListHandleClick(getUser.user_id,3)">Hồ sơ</li>
 
             <li
               style="border-end-end-radius: 10px; border-end-start-radius: 10px"
@@ -101,6 +101,9 @@
       </li>
       <li @click="OpenMenuMobileHandleClick()">
         <router-link to="/about">Giới thiệu</router-link>
+      </li>
+      <li @click="OpenMenuMobileHandleClick()">
+        <router-link to="/admin">Quản lý</router-link>
       </li>
     </ul>
     <div class="Account-Nav-Mobile">
@@ -146,8 +149,8 @@ export default {
   methods: {
     ...mapActions("Auth", ["LogOutAction"]),
 
-    AccountListHandleClick(number) {
-      this.$router.push(`/account/${number}`);
+    AccountListHandleClick(id ,number) {
+      this.$router.push(`/account/${id}/${number}`);
     },
 
     LogOutHandleClick() {

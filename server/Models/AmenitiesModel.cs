@@ -7,9 +7,9 @@ namespace server.Models
         [Key]
         public int amenity_id { get; set; }
 
-        public string name { get; set; }
+        public string? name { get; set; }
 
-        public string icon { get; set; }
+        public string? icon { get; set; }
 
         public Boolean show { get; set; }
 

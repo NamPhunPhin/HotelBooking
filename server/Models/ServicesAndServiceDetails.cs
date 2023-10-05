@@ -6,9 +6,9 @@ namespace server.Models
     {
         public int service_id { get; set; }
 
-        public string service_name { get; set; }
+        public string? service_name { get; set; }
 
-        public string icon { get; set; }
+        public string? icon { get; set; }
 
         public List<ServiceDetails>? details { get; set; }
 

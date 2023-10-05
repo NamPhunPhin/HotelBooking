@@ -43,5 +43,19 @@ namespace server.Helpers
         public DbSet<ImagesRoom> ImagesRoom { get; set; }
 
         public DbSet<RoomAmenities> RoomAmenities { get; set; }
+        
+        public DbSet<Orders> Orders { get; set; }
+
+        public DbSet<OrderDetails> OrderDetails { get; set; }
+
+        public DbSet<WishList> WishList { get; set; }
+
+        public DbSet<StatusOrder> StatusOrder { get; set; }
+
+        public DbSet<StatusPayment> StatusPayment { get; set; }
+
+        public DbSet<StatusRoom> StatusRoom { get; set; }
+
+        public DbSet<Assess> Assess { get; set; }
     }
 }
